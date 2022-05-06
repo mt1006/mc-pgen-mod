@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "":
+    {
+      "model": "pgen:block/particle_generator"
+    }
+  }
+}

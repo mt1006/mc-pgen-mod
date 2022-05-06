@@ -1,0 +1,27 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+license="GNU General Public License v3.0"
+
+[[mods]]
+modId="pgen"
+version="1.0"
+displayName="ParticleGenerator"
+logoFile="logo.png"
+authors="mt1006 (mt1006x)"
+description='''
+Nothing interesting...
+'''
+
+[[dependencies.pgen]]
+    modId="forge"
+    mandatory=true
+    versionRange="[40,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.pgen]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2,1.19)"
+    ordering="NONE"
+    side="BOTH"
