@@ -22,19 +22,18 @@ position=[center(default)/top/bottom] - determines position of particles generat
 
 ### Particle Generator NBT tags
 ```
-Particle Generator NBT tags:
-  Particles:[{...}] - list of compounds:
-    id:"" - particle id
-    Motion:[x,y,z] - particle velocities [blocks/tick] (in most cases)
-    MotionRand:[x,y,z] - randomization of "Motion" values
-    PositionOffset:[x,y,z] - offset of particle positions
-    PositionRand:[x,y,z] - randomization of particle positions
-    Interval:int - interval between particles [ticks]
-    Probability:double - probability of particle spawning
-    ParticleCount:int - number of particles when spawned
-    ParticleMaxCount:int - maximum number of particles
-    AdditionalTags:{} - additional tags (like block id)
-  UseAnimateTick:bool - spawn particles on animateTick
+Particles:[{...}] - list of compounds:
+ id:"" - particle id
+  Motion:[x,y,z] - particle velocities [blocks/tick] (in most cases)
+  MotionRand:[x,y,z] - randomization of "Motion" values
+  PositionOffset:[x,y,z] - offset of particle positions
+  PositionRand:[x,y,z] - randomization of particle positions
+  Interval:int - interval between particles [ticks]
+  Probability:double - probability of particle spawning
+  ParticleCount:int - number of particles when spawned
+  ParticleMaxCount:int - maximum number of particles
+  AdditionalTags:{} - additional tags (like block id)
+UseAnimateTick:bool - spawn particles on animateTick
 ```
 
 ### Useful Minecraft BlockItem NBT tags
