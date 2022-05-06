@@ -11,6 +11,7 @@ import net.minecraft.command.Commands;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.event.ClickEvent;
 
 import java.util.Arrays;
@@ -109,14 +110,14 @@ public class ParticleGeneratorCommand
 		}
 		ctx.getSource().sendSuccess(new StringTextComponent("  >Simple smoke Particle Generator:"), false);
 		ctx.getSource().sendSuccess(new StringTextComponent("    ").append(new StringTextComponent("[using a /setblock]").withStyle((style) ->
-				style.withUnderlined(true).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_SMOKE_SETBLOCK)))), false);
+				style.applyFormat(TextFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_SMOKE_SETBLOCK)))), false);
 		ctx.getSource().sendSuccess(new StringTextComponent("    ").append(new StringTextComponent("[using a /give]").withStyle((style) ->
-				style.withUnderlined(true).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_SMOKE_GIVE)))), false);
+				style.applyFormat(TextFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_SMOKE_GIVE)))), false);
 		ctx.getSource().sendSuccess(new StringTextComponent("  >Particle Generator like campfire:"), false);
 		ctx.getSource().sendSuccess(new StringTextComponent("    ").append(new StringTextComponent("[using a /setblock]").withStyle((style) ->
-				style.withUnderlined(true).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_LIKE_CAMPFIRE_SETBLOCK)))), false);
+				style.applyFormat(TextFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_LIKE_CAMPFIRE_SETBLOCK)))), false);
 		ctx.getSource().sendSuccess(new StringTextComponent("    ").append(new StringTextComponent("[using a /give]").withStyle((style) ->
-				style.withUnderlined(true).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_LIKE_CAMPFIRE_GIVE)))), false);
+				style.applyFormat(TextFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_LIKE_CAMPFIRE_GIVE)))), false);
 		return 1;
 	}
 
