@@ -6,6 +6,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.mt1006.ParticleGenerator.ParticleGenerator;
 import com.mt1006.ParticleGenerator.network.PacketHandler;
 import com.mt1006.ParticleGenerator.network.ParticleGeneratorPacket;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.ClickEvent;
@@ -109,14 +110,14 @@ public class ParticleGeneratorCommand
 		}
 		ctx.getSource().sendSuccess(new TextComponent("  >Simple smoke Particle Generator:"), false);
 		ctx.getSource().sendSuccess(new TextComponent("    ").append(new TextComponent("[using a /setblock]").withStyle((style) ->
-				style.withUnderlined(true).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_SMOKE_SETBLOCK)))), false);
+				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_SMOKE_SETBLOCK)))), false);
 		ctx.getSource().sendSuccess(new TextComponent("    ").append(new TextComponent("[using a /give]").withStyle((style) ->
-				style.withUnderlined(true).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_SMOKE_GIVE)))), false);
+				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_SMOKE_GIVE)))), false);
 		ctx.getSource().sendSuccess(new TextComponent("  >Particle Generator like campfire:"), false);
 		ctx.getSource().sendSuccess(new TextComponent("    ").append(new TextComponent("[using a /setblock]").withStyle((style) ->
-				style.withUnderlined(true).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_LIKE_CAMPFIRE_SETBLOCK)))), false);
+				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_LIKE_CAMPFIRE_SETBLOCK)))), false);
 		ctx.getSource().sendSuccess(new TextComponent("    ").append(new TextComponent("[using a /give]").withStyle((style) ->
-				style.withUnderlined(true).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_LIKE_CAMPFIRE_GIVE)))), false);
+				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_LIKE_CAMPFIRE_GIVE)))), false);
 		return 1;
 	}
 
