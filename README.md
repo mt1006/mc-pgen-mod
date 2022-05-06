@@ -1,7 +1,7 @@
 # About
 **ParticleGenerator** is a Minecraft mod created mainly for builders and mapmakers. It adds particle generator block into the game.
 
-This block is highly customisable and using it is much more convenient and efficient than using command blocks. It allows you to generate multiple particles from one block or set generated particles position and speed randomization.
+That block is highly customisable and using it is much more convenient and efficient than using command blocks. It allows you to generate multiple particles from one block or set generated particles position and speed randomization.
 
 
 # Usage
