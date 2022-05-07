@@ -23,7 +23,7 @@ position=[center(default)/top/bottom] - determines position of particles generat
 ### Particle Generator NBT tags
 ```
 Particles:[{...}] - list of compounds:
- id:"" - particle id
+  id:"" - particle id
   Motion:[x,y,z] - particle velocities [blocks/tick] (in most cases)
   MotionRand:[x,y,z] - randomization of "Motion" values
   PositionOffset:[x,y,z] - offset of particle positions
