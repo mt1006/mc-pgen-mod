@@ -37,9 +37,9 @@ UseAnimateTick:bool - spawn particles on animateTick
 ```
 *For position and motion, random value is in range from ```val-(rand/2)``` to ```val+(rand/2)```.
 
-*For particle count, random value is in range from ParticleCount to ParticleMaxCount.
+*For particle count, random value is in range from ```ParticleCount``` to ```ParticleMaxCount```.
 
-*By default ```UseAnimateTick``` tag is set to ```false```. That means particles will try to spawn every tick and their spawn rate can be manipulated with ```Interval``` and ```Propability``` tags. When set to ```true``` particles will try to spawn when ```animateTick``` method is called. This will allow you to recreate particles spawn rate of for example torches and many other blocks that uses ```animateTick``` to spawn particles.
+*By default ```UseAnimateTick``` tag is set to ```false```. That means particles will try to spawn every tick and their spawn rate can be manipulated using ```Interval``` and ```Propability``` tags. When set to ```true``` particles will try to spawn when ```animateTick``` method is called. This will allow you to recreate particles spawn rate of for example torches and many other blocks that uses ```animateTick``` to spawn particles.
 
 *If you want to spawn particles that require additional block or item ID (like for example ```block``` particle) add tag ```AdditionalTags:{id:"some_block_id"}``` .
 ### Useful Minecraft BlockItem NBT tags
