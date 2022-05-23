@@ -40,7 +40,7 @@ public class GeneratedParticleInfo
 	{
 		if (nbt.contains("id"))
 		{
-			ResourceLocation resLoc = new ResourceLocation(nbt.getString("id"));
+			ResourceLocation resLoc = Utils.resourceLocationFromString(nbt.getString("id"));
 			ParticleType particleType = Registry.PARTICLE_TYPE.get(resLoc);
 			if (particleType != null)
 			{
@@ -72,7 +72,7 @@ public class GeneratedParticleInfo
 			Block block = null;
 			if (additionalTags != null && additionalTags.contains("id"))
 			{
-				ResourceLocation resLoc = new ResourceLocation(additionalTags.getString("id"));
+				ResourceLocation resLoc = Utils.resourceLocationFromString(additionalTags.getString("id"));
 				block = Registry.BLOCK.get(resLoc);
 			}
 			if (block == null) { block = Blocks.AIR; }
@@ -83,7 +83,7 @@ public class GeneratedParticleInfo
 			Item item = null;
 			if (additionalTags != null && additionalTags.contains("id"))
 			{
-				ResourceLocation resLoc = new ResourceLocation(additionalTags.getString("id"));
+				ResourceLocation resLoc = Utils.resourceLocationFromString(additionalTags.getString("id"));
 				item = Registry.ITEM.get(resLoc);
 			}
 			if (item == null) { item = Items.AIR; }
