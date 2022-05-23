@@ -16,7 +16,7 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle'
 
 
-version = '1.0'
+version = '1.0.1'
 group = 'com.mt1006.ParticleGenerator' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'ParticleGenerator-FORGE-1.18.2'
 
