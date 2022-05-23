@@ -3,6 +3,7 @@ package com.mt1006.ParticleGenerator.util;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.DoubleNBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3d;
 
 public class Utils
@@ -24,5 +25,13 @@ public class Utils
         double y = motionList.getDouble(1);
         double z = motionList.getDouble(2);
         return new Vector3d(x, y, z);
+    }
+
+    public static ResourceLocation resourceLocationFromString(String id)
+    {
+        ResourceLocation resLoc;
+        try { resLoc = new ResourceLocation(id.toLowerCase()); }
+        catch (Exception exception) { resLoc = null; }
+        return resLoc;
     }
 }

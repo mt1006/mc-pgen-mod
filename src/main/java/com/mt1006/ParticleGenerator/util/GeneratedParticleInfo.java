@@ -41,7 +41,7 @@ public class GeneratedParticleInfo
 	{
 		if (nbt.contains("id"))
 		{
-			ResourceLocation resLoc = new ResourceLocation(nbt.getString("id"));
+			ResourceLocation resLoc = Utils.resourceLocationFromString(nbt.getString("id"));
 			ParticleType particleType = ForgeRegistries.PARTICLE_TYPES.getValue(resLoc);
 			if (particleType != null)
 			{
@@ -73,7 +73,7 @@ public class GeneratedParticleInfo
 			Block block = null;
 			if (additionalTags != null && additionalTags.contains("id"))
 			{
-				ResourceLocation resLoc = new ResourceLocation(additionalTags.getString("id"));
+				ResourceLocation resLoc = Utils.resourceLocationFromString(additionalTags.getString("id"));
 				block = ForgeRegistries.BLOCKS.getValue(resLoc);
 			}
 			if (block == null) { block = Blocks.AIR; }
@@ -84,7 +84,7 @@ public class GeneratedParticleInfo
 			Item item = null;
 			if (additionalTags != null && additionalTags.contains("id"))
 			{
-				ResourceLocation resLoc = new ResourceLocation(additionalTags.getString("id"));
+				ResourceLocation resLoc = Utils.resourceLocationFromString(additionalTags.getString("id"));
 				item = ForgeRegistries.ITEMS.getValue(resLoc);
 			}
 			if (item == null) { item = Items.AIR; }

@@ -4,7 +4,7 @@ license="GNU General Public License v3.0"
 
 [[mods]]
 modId="pgen"
-version="1.0"
+version="1.0.1"
 displayName="ParticleGenerator"
 logoFile="logo.png"
 authors="mt1006 (mt1006x)"
