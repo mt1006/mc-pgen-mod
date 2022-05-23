@@ -1,0 +1,2 @@
+===Version 1.0.1===
+-Fixed a crash when giving as ID, string that contains characters other than small leters, numbers, dash, underscore, dot, or contains multiple colons. (Thanks netcore10 for reporting)
