@@ -3,6 +3,7 @@
 
 Particle Generator block is highly customisable and using it is much more convenient and efficient than using command blocks. It allows you to generate multiple particles from one block or set generated particles position and speed randomization.
 
+CurseForge page: https://www.curseforge.com/minecraft/mc-mods/particlegenerator
 
 # Usage
 
