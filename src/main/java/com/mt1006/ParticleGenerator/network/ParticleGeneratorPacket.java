@@ -1,6 +1,6 @@
 package com.mt1006.ParticleGenerator.network;
 
-import com.mt1006.ParticleGenerator.block.ParticleGeneratorBlock;
+import com.mt1006.ParticleGenerator.pgen.ParticleGeneratorBlock;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
