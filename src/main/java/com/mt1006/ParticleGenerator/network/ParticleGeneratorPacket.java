@@ -1,6 +1,6 @@
 package com.mt1006.ParticleGenerator.network;
 
-import com.mt1006.ParticleGenerator.block.ParticleGeneratorBlock;
+import com.mt1006.ParticleGenerator.pgen.ParticleGeneratorBlock;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -8,10 +8,10 @@ import java.util.function.Supplier;
 
 public class ParticleGeneratorPacket
 {
-	private int operation = 0;
 	public static int OP_SHOW = 1;
 	public static int OP_HIDE = 2;
 	public static int OP_LOCATE = 3;
+	private final int operation;
 
 	public ParticleGeneratorPacket(int operation)
 	{

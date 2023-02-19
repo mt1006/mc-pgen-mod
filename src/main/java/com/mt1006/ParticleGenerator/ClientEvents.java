@@ -13,6 +13,7 @@ public class ClientEvents
 	@SubscribeEvent
 	public static void clientSetup(final FMLClientSetupEvent event)
 	{
-		ItemBlockRenderTypes.setRenderLayer(RegistryHandler.BLOCK_PG.get(), RenderType.cutoutMipped());
+		// 1.18.2 and older
+		//ItemBlockRenderTypes.setRenderLayer(RegistryHandler.BLOCK_PG.get(), RenderType.cutoutMipped());
 	}
 }

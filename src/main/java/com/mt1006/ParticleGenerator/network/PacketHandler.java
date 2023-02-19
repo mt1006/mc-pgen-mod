@@ -20,7 +20,7 @@ public class PacketHandler
 		INSTANCE.messageBuilder(ParticleGeneratorPacket.class, index++, NetworkDirection.PLAY_TO_CLIENT)
 				.decoder(ParticleGeneratorPacket::new)
 				.encoder(ParticleGeneratorPacket::encode)
-				.consumer(ParticleGeneratorPacket::handle)
+				.consumerMainThread(ParticleGeneratorPacket::handle)
 				.add();
 	}
 

@@ -12,7 +12,7 @@ public class RegisterCommands
 	@SubscribeEvent
 	public static void registerCommands(RegisterCommandsEvent event)
 	{
-		ParticleGeneratorCommand.register(event.getDispatcher());
+		PgenCommand.register(event.getDispatcher());
 		ConfigCommand.register(event.getDispatcher());
 	}
 }
