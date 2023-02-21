@@ -24,7 +24,7 @@ apply plugin: 'net.minecraftforge.gradle'
 
 version = '1.0.1'
 group = 'com.mt1006.ParticleGenerator'
-archivesBaseName = 'ParticleGenerator-FORGE-1.19.2'
+archivesBaseName = 'ParticleGenerator-FORGE-1.19.3'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -32,7 +32,7 @@ println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty '
 
 minecraft
 {
-	mappings channel: 'official', version: '1.19.2'
+	mappings channel: 'official', version: '1.19.3'
 
 	runs
 	{
@@ -70,7 +70,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies
 {
-	minecraft 'net.minecraftforge:forge:1.19.2-43.1.7'
+	minecraft 'net.minecraftforge:forge:1.19.3-44.1.0'
 }
 
 jar
