@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -30,9 +31,9 @@ public class RegistryHandler
 
 	public static void register()
 	{
-		Registry.register(Registry.BLOCK, new ResourceLocation(ParticleGenerator.MOD_ID, "particle_generator"), BLOCK_PG);
-		Registry.register(Registry.ITEM, new ResourceLocation(ParticleGenerator.MOD_ID, "particle_generator"), ITEM_PG);
-		Registry.register(Registry.BLOCK_ENTITY_TYPE, new ResourceLocation(ParticleGenerator.MOD_ID, "particle_generator"), TILE_ENTITY_PG);
-		Registry.register(Registry.PARTICLE_TYPE, new ResourceLocation(ParticleGenerator.MOD_ID, "locate"), PARTICLE_LOCATE);
+		Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(ParticleGenerator.MOD_ID, "particle_generator"), BLOCK_PG);
+		Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(ParticleGenerator.MOD_ID, "particle_generator"), ITEM_PG);
+		Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, new ResourceLocation(ParticleGenerator.MOD_ID, "particle_generator"), TILE_ENTITY_PG);
+		Registry.register(BuiltInRegistries.PARTICLE_TYPE, new ResourceLocation(ParticleGenerator.MOD_ID, "locate"), PARTICLE_LOCATE);
 	}
 }

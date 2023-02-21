@@ -1,8 +1,8 @@
 package com.mt1006.ParticleGenerator.pgen;
 
 import com.mt1006.ParticleGenerator.RegistryHandler;
-import com.mt1006.ParticleGenerator.pgen.blockstate.ParticlesPosition;
 import com.mt1006.ParticleGenerator.pgen.blockentity.ParticleGeneratorBlockEntity;
+import com.mt1006.ParticleGenerator.pgen.blockstate.ParticlesPosition;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;

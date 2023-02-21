@@ -1,8 +1,8 @@
 package com.mt1006.ParticleGenerator.pgen.blockstate;
 
-import com.mojang.math.Vector3d;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public enum ParticlesPosition implements StringRepresentable
@@ -34,8 +34,8 @@ public enum ParticlesPosition implements StringRepresentable
 		return name;
 	}
 
-	public Vector3d getFinalPosition(BlockPos blockPos)
+	public Vec3 getFinalPosition(BlockPos blockPos)
 	{
-		return new Vector3d((double)blockPos.getX() + x, (double)blockPos.getY() + y, (double)blockPos.getZ() + z);
+		return new Vec3((double)blockPos.getX() + x, (double)blockPos.getY() + y, (double)blockPos.getZ() + z);
 	}
 }

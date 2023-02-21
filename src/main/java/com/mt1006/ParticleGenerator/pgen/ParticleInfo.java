@@ -1,9 +1,8 @@
 package com.mt1006.ParticleGenerator.pgen;
 
-import com.mojang.math.Vector3d;
 import com.mt1006.ParticleGenerator.utils.Utils;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.*;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
@@ -13,16 +12,17 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.Arrays;
 
 public class ParticleInfo
 {
 	private ParticleOptions particle = null;
-	private Vector3d motion = new Vector3d(0.0D, 0.0D, 0.0D);
-	private Vector3d motionRand = new Vector3d(0.0D, 0.0D, 0.0D);
-	private Vector3d posOffset = new Vector3d(0.0D, 0.0D, 0.0D);
-	private Vector3d posRand = new Vector3d(0.0D, 0.0D, 0.0D);
+	private Vec3 motion = new Vec3(0.0D, 0.0D, 0.0D);
+	private Vec3 motionRand = new Vec3(0.0D, 0.0D, 0.0D);
+	private Vec3 posOffset = new Vec3(0.0D, 0.0D, 0.0D);
+	private Vec3 posRand = new Vec3(0.0D, 0.0D, 0.0D);
 	private int interval = 1;
 	private double probability = 1.0;
 	private int particleCount = 1;
@@ -43,7 +43,7 @@ public class ParticleInfo
 		if (nbt.contains("id"))
 		{
 			ResourceLocation resLoc = Utils.resourceLocationFromString(nbt.getString("id"));
-			ParticleType<?> particleType = Registry.PARTICLE_TYPE.get(resLoc);
+			ParticleType<?> particleType = BuiltInRegistries.PARTICLE_TYPE.get(resLoc);
 			if (particleType != null)
 			{
 				if (particleType instanceof ParticleOptions) { particle = (ParticleOptions)particleType; }
@@ -58,7 +58,7 @@ public class ParticleInfo
 		if (nbt.contains("Probability")) { probability = nbt.getDouble("Probability"); }
 		if (nbt.contains("ParticleCount")) { particleCount = nbt.getInt("ParticleCount"); }
 		if (nbt.contains("ParticleMaxCount")) { particleMaxCount = nbt.getInt("ParticleMaxCount"); }
-		if (!motionRand.equals(new Vector3d(0.0D, 0.0D, 0.0D)) || !posRand.equals(new Vector3d(0.0D, 0.0D, 0.0D))) { useRand = true; }
+		if (!motionRand.equals(new Vec3(0.0D, 0.0D, 0.0D)) || !posRand.equals(new Vec3(0.0D, 0.0D, 0.0D))) { useRand = true; }
 	}
 
 	private ParticleOptions loadComplexParticle(ParticleType particleType, CompoundTag nbt)
@@ -77,7 +77,7 @@ public class ParticleInfo
 			if (additionalTags != null && additionalTags.contains("id"))
 			{
 				ResourceLocation resLoc = Utils.resourceLocationFromString(additionalTags.getString("id"));
-				block = Registry.BLOCK.get(resLoc);
+				block = BuiltInRegistries.BLOCK.get(resLoc);
 			}
 			if (block == null) { block = Blocks.AIR; }
 			return new BlockParticleOption(particleType, block.defaultBlockState());
@@ -88,7 +88,7 @@ public class ParticleInfo
 			if (additionalTags != null && additionalTags.contains("id"))
 			{
 				ResourceLocation resLoc = Utils.resourceLocationFromString(additionalTags.getString("id"));
-				item = Registry.ITEM.get(resLoc);
+				item = BuiltInRegistries.ITEM.get(resLoc);
 			}
 			if (item == null) { item = Items.AIR; }
 			return new ItemParticleOption(particleType, new ItemStack(item));
@@ -100,7 +100,7 @@ public class ParticleInfo
 	{
 		if (particle != null)
 		{
-			ResourceLocation resourceLocation = Registry.PARTICLE_TYPE.getKey(particle.getType());
+			ResourceLocation resourceLocation = BuiltInRegistries.PARTICLE_TYPE.getKey(particle.getType());
 			if (resourceLocation != null) { nbt.putString("id", resourceLocation.toString()); }
 		}
 		nbt.put("Motion", Utils.doubleListToNBT(motion.x, motion.y, motion.z));
