@@ -13,13 +13,13 @@ description="Just particle generator"
 [[dependencies.pgen]]
     modId="forge"
     mandatory=true
-    versionRange="[44,)"
+    versionRange="[45,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.pgen]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.3,1.20)"
+    versionRange="[1.19.4,1.20)"
     ordering="NONE"
     side="BOTH"
