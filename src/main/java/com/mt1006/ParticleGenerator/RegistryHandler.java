@@ -10,7 +10,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -25,7 +25,7 @@ public class RegistryHandler
 	public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, ParticleGenerator.MOD_ID);
 
 	public static final RegistryObject<Block> BLOCK_PG = BLOCKS.register("particle_generator",
-			() -> new ParticleGeneratorBlock(BlockBehaviour.Properties.of(Material.BARRIER).strength(-1.0F, 3600000.8F).noLootTable().noOcclusion().noCollission()));
+			() -> new ParticleGeneratorBlock(BlockBehaviour.Properties.of().strength(-1.0F, 3600000.8F).noLootTable().noOcclusion().noCollission().pushReaction(PushReaction.BLOCK)));
 
 	public static final RegistryObject<Item> ITEM_PG = ITEMS.register("particle_generator",
 			() -> new BlockItem(BLOCK_PG.get(), new Item.Properties().rarity(Rarity.EPIC)));

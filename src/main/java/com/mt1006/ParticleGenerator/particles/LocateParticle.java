@@ -12,6 +12,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.extensions.IForgeBakedModel;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)

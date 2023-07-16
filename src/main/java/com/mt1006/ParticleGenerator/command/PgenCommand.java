@@ -30,13 +30,13 @@ public class PgenCommand
 	public static void register(CommandDispatcher<CommandSourceStack> dispatcher)
 	{
 		LiteralCommandNode<CommandSourceStack> literalCommandNode = dispatcher.
-				register(Commands.literal("particlegenerator").requires((source) -> {return source.hasPermission(2);}).
+				register(Commands.literal("particlegenerator").requires((source) -> source.hasPermission(2)).
 				then(Commands.literal("show").executes(PgenCommand::show)).
 				then(Commands.literal("hide").executes(PgenCommand::hide)).
 				then(Commands.literal("locate").executes(PgenCommand::locate)).
 				then(Commands.literal("help").executes(PgenCommand::help)).
 				then(Commands.literal("info").executes(PgenCommand::info)));
-		dispatcher.register(Commands.literal("pgen").requires((source) -> {return source.hasPermission(2);}).
+		dispatcher.register(Commands.literal("pgen").requires((source) -> source.hasPermission(2)).
 				redirect(literalCommandNode));
 	}
 
@@ -106,25 +106,25 @@ public class PgenCommand
 				"Example usages:");
 		for (String str : text)
 		{
-			ctx.getSource().sendSuccess(Component.literal(str), false);
+			ctx.getSource().sendSuccess(() -> Component.literal(str), false);
 		}
-		ctx.getSource().sendSuccess(Component.literal("  >Simple smoke Particle Generator:"), false);
-		ctx.getSource().sendSuccess(Component.literal("    ").append(Component.literal("[using a /setblock]").withStyle((style) ->
+		ctx.getSource().sendSuccess(() -> Component.literal("  >Simple smoke Particle Generator:"), false);
+		ctx.getSource().sendSuccess(() -> Component.literal("    ").append(Component.literal("[using a /setblock]").withStyle((style) ->
 				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_SMOKE_SETBLOCK)))), false);
-		ctx.getSource().sendSuccess(Component.literal("    ").append(Component.literal("[using a /give]").withStyle((style) ->
+		ctx.getSource().sendSuccess(() -> Component.literal("    ").append(Component.literal("[using a /give]").withStyle((style) ->
 				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_SMOKE_GIVE)))), false);
-		ctx.getSource().sendSuccess(Component.literal("  >Particle Generator like campfire:"), false);
-		ctx.getSource().sendSuccess(Component.literal("    ").append(Component.literal("[using a /setblock]").withStyle((style) ->
+		ctx.getSource().sendSuccess(() -> Component.literal("  >Particle Generator like campfire:"), false);
+		ctx.getSource().sendSuccess(() -> Component.literal("    ").append(Component.literal("[using a /setblock]").withStyle((style) ->
 				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_LIKE_CAMPFIRE_SETBLOCK)))), false);
-		ctx.getSource().sendSuccess(Component.literal("    ").append(Component.literal("[using a /give]").withStyle((style) ->
+		ctx.getSource().sendSuccess(() -> Component.literal("    ").append(Component.literal("[using a /give]").withStyle((style) ->
 				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_LIKE_CAMPFIRE_GIVE)))), false);
 		return 1;
 	}
 
 	private static int info(CommandContext<CommandSourceStack> ctx)
 	{
-		ctx.getSource().sendSuccess(Component.literal(ParticleGenerator.getFullName()), false);
-		ctx.getSource().sendSuccess(Component.literal("Author: mt1006"), false);
+		ctx.getSource().sendSuccess(() -> Component.literal(ParticleGenerator.getFullName()), false);
+		ctx.getSource().sendSuccess(() -> Component.literal("Author: mt1006 (mt1006x)"), false);
 		return 1;
 	}
 }
