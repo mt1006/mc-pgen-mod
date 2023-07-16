@@ -9,7 +9,7 @@ public class ParticleGenerator implements ModInitializer
 {
 	public static final String MOD_ID = "pgen";
 	public static final String VERSION = "1.0.1";
-	public static final String MOD_FOR_VERSION = "1.19.4";
+	public static final String MOD_FOR_VERSION = "1.20.1";
 	public static final String MOD_FOR_LOADER = "Fabric";
 	public static final Logger LOGGER = LogManager.getLogger();
 
@@ -18,7 +18,7 @@ public class ParticleGenerator implements ModInitializer
 	{
 		RegistryHandler.register();
 		RegisterCommands.registerCommands();
-		ParticleGenerator.LOGGER.info(getFullName() + " - Author: mt1006");
+		ParticleGenerator.LOGGER.info(getFullName() + " - Author: mt1006 (mt1006x)");
 	}
 
 	public static String getName()

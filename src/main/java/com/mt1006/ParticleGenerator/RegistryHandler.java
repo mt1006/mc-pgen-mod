@@ -14,12 +14,12 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.PushReaction;
 
 public class RegistryHandler
 {
 	public static final Block BLOCK_PG =
-			new ParticleGeneratorBlock(BlockBehaviour.Properties.of(Material.BARRIER).strength(-1.0F, 3600000.8F).noLootTable().noOcclusion().noCollission());
+			new ParticleGeneratorBlock(BlockBehaviour.Properties.of().strength(-1.0F, 3600000.8F).noLootTable().noOcclusion().noCollission().pushReaction(PushReaction.BLOCK));
 
 	public static final Item ITEM_PG =
 			new BlockItem(BLOCK_PG, new Item.Properties().rarity(Rarity.EPIC));
