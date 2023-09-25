@@ -2,9 +2,7 @@ package com.mt1006.ParticleGenerator.network;
 
 import com.mt1006.ParticleGenerator.pgen.ParticleGeneratorBlock;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 
 public class ParticleGeneratorPacket
 {
@@ -28,7 +26,7 @@ public class ParticleGeneratorPacket
 		buf.writeInt(operation);
 	}
 
-	public void handle(Supplier<NetworkEvent.Context> ctx)
+	public void handle(CustomPayloadEvent.Context ctx)
 	{
 		if (operation == OP_SHOW) { ParticleGeneratorBlock.showShape = true; }
 		else if (operation == OP_HIDE) { ParticleGeneratorBlock.showShape = false; }
