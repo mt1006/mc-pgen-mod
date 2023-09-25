@@ -9,7 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 
 public class PacketHandler
 {
-	private static final ResourceLocation CHANNEL_NAME = new ResourceLocation(ParticleGenerator.MOD_ID, "main");
+	private static final ResourceLocation CHANNEL_NAME = new ResourceLocation(ParticleGenerator.MOD_ID, "fabric");
 
 	public static void register()
 	{
