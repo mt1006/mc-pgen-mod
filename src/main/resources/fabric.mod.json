@@ -4,12 +4,12 @@
 	"version": "${version}",
 
 	"name": "ParticleGenerator",
-	"description": "Just particle generator",
+	"description": "Adds particle generator",
 	"authors": ["mt1006 (mt1006x)"],
 	"contact":
     {
-		"sources": "https://github.com/mt1006/ParticleGenerator",
-		"issues": "https://github.com/mt1006/ParticleGenerator/issues"
+		"sources": "https://github.com/mt1006/mc-pgen-mod",
+		"issues": "https://github.com/mt1006/mc-pgen-mod/issues"
 	},
 
 	"license": "GNU Lesser General Public License v3.0",
