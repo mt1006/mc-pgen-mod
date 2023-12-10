@@ -54,7 +54,7 @@ BlockEntityTag:{} - specifies block NBT tags
 
 ## Simple smoke Particle Generator
 
-![](example1.png)
+![](https://raw.githubusercontent.com/mt1006/mc-pgen-mod/_common/screenshots/example1.png)
 
 **Using a /setblock:** ```/setblock ~ ~ ~ pgen:particle_generator{Particles:[{id:"smoke"}],UseAnimateTick:true}```
 
@@ -62,7 +62,7 @@ BlockEntityTag:{} - specifies block NBT tags
 
 ## Particle Generator like campfire
 
-![](example2.png)
+![](https://raw.githubusercontent.com/mt1006/mc-pgen-mod/_common/screenshots/example2.png)
 
 **Using a /setblock:** ```/setblock ~ ~ ~ pgen:particle_generator[position=bottom]{Particles:[{id:"campfire_cosy_smoke",Motion:[0.0,0.07,0.0],PositionRand:[0.67,0.0,0.67],ParticleCount:2,ParticleMaxCount:3,Probability:0.11}]}```
 
