@@ -5,6 +5,8 @@ Particle Generator block is highly customisable and using it is much more conven
 
 CurseForge page: https://www.curseforge.com/minecraft/mc-mods/particlegenerator
 
+Modrinth page: https://modrinth.com/mod/particlegenerator
+
 # Usage
 
 ### Commands
