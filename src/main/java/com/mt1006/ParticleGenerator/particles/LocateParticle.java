@@ -28,14 +28,12 @@ public class LocateParticle extends TextureSheetParticle
 		hasPhysics = false;
 	}
 
-	@Override
-	public @NotNull ParticleRenderType getRenderType()
+	@Override public @NotNull ParticleRenderType getRenderType()
 	{
 		return ParticleRenderType.TERRAIN_SHEET;
 	}
 
-	@Override
-	public float getQuadSize(float arg)
+	@Override public float getQuadSize(float arg)
 	{
 		return 0.5F;
 	}
@@ -44,9 +42,8 @@ public class LocateParticle extends TextureSheetParticle
 	{
 		public Factory() {}
 
-		@Override
-		public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel clientLevel,
-									   double x, double y, double z, double mx, double my, double mz)
+		@Override public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel clientLevel,
+												 double x, double y, double z, double mx, double my, double mz)
 		{
 			return new LocateParticle(clientLevel, x, y, z, RegistryHandler.BLOCK_PG.asItem());
 		}

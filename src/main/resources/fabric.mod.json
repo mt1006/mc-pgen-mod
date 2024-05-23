@@ -5,32 +5,29 @@
 
 	"name": "ParticleGenerator",
 	"description": "Adds particle generator",
-	"authors": ["mt1006 (mt1006x)"],
+	"authors": ["mt1006"],
 	"contact":
     {
+		"homepage": "https://modrinth.com/mod/particlegenerator",
 		"sources": "https://github.com/mt1006/mc-pgen-mod",
 		"issues": "https://github.com/mt1006/mc-pgen-mod/issues"
 	},
 
-	"license": "GNU Lesser General Public License v3.0",
+	"license": "LGPL-3.0-only",
 	"icon": "logo.png",
 
 	"environment": "*",
 	"entrypoints":
     {
-		"main": ["com.mt1006.ParticleGenerator.ParticleGenerator"],
+		"main": ["com.mt1006.ParticleGenerator.PgenMod"],
 		"client": ["com.mt1006.ParticleGenerator.ClientEvents"]
 	},
 
 	"depends":
     {
-		"fabricloader": ">=0.14.21",
+		"minecraft": "~1.20.5",
+		"fabricloader": ">=0.15.0",
 		"fabric-api": "*",
-		"minecraft": "~1.20",
-		"java": ">=17"
-	},
-	"suggests":
-    {
-		"another-mod": "*"
+		"java": ">=21"
 	}
 }

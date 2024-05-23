@@ -34,33 +34,28 @@ public class ParticleGeneratorBlock extends Block implements EntityBlock
 		this.registerDefaultState(this.stateDefinition.any().setValue(PARTICLES_POSITION, ParticlesPosition.CENTER));
 	}
 	
-	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
+	@Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
 	{
 		builder.add(PARTICLES_POSITION);
 	}
 
-	@Override
-	public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState)
+	@Override public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState)
 	{
 		return new ParticleGeneratorBlockEntity(blockPos, blockState);
 	}
 
-	@Override @Deprecated
-	public @NotNull VoxelShape getShape(@NotNull BlockState blockState, @NotNull BlockGetter blockReader,
-										@NotNull BlockPos blockPos, @NotNull CollisionContext ctx)
+	@Override public @NotNull VoxelShape getShape(@NotNull BlockState blockState, @NotNull BlockGetter blockReader,
+												  @NotNull BlockPos blockPos, @NotNull CollisionContext ctx)
 	{
 		return showShape ? super.getShape(blockState, blockReader, blockPos, ctx) : Block.box(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 	}
 
-	@Override
-	public boolean propagatesSkylightDown(@NotNull BlockState blockState, @NotNull BlockGetter blockReader, @NotNull BlockPos blockPos)
+	@Override public boolean propagatesSkylightDown(@NotNull BlockState blockState, @NotNull BlockGetter blockReader, @NotNull BlockPos blockPos)
 	{
 		return true;
 	}
 
-	@Override
-	public void animateTick(@NotNull BlockState blockState, Level world, @NotNull BlockPos blockPos, @NotNull RandomSource random)
+	@Override public void animateTick(@NotNull BlockState blockState, Level world, @NotNull BlockPos blockPos, @NotNull RandomSource random)
 	{
 		BlockEntity tileEntity = world.getBlockEntity(blockPos);
 		if (tileEntity instanceof ParticleGeneratorBlockEntity)
@@ -78,15 +73,12 @@ public class ParticleGeneratorBlock extends Block implements EntityBlock
 		}
 	}
 
-	@Override @Nullable
-	public <T extends BlockEntity> BlockEntityTicker<T>
+	@Override @Nullable public <T extends BlockEntity> BlockEntityTicker<T>
 			getTicker(Level world, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType)
 	{
-		if (world.isClientSide)
-		{
-			return createTickerHelper(blockEntityType, RegistryHandler.TILE_ENTITY_PG, ParticleGeneratorBlockEntity::tick);
-		}
-		else { return null; }
+		return world.isClientSide
+				? createTickerHelper(blockEntityType, RegistryHandler.TILE_ENTITY_PG, ParticleGeneratorBlockEntity::tick)
+				: null;
 	}
 
 	protected static <E extends BlockEntity, A extends BlockEntity>BlockEntityTicker<A>

@@ -2,7 +2,6 @@ package com.mt1006.ParticleGenerator;
 
 import com.mt1006.ParticleGenerator.pgen.ParticleGeneratorBlock;
 import com.mt1006.ParticleGenerator.pgen.blockentity.ParticleGeneratorBlockEntity;
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -25,15 +24,15 @@ public class RegistryHandler
 			new BlockItem(BLOCK_PG, new Item.Properties().rarity(Rarity.EPIC));
 
 	public static final BlockEntityType<ParticleGeneratorBlockEntity> TILE_ENTITY_PG =
-			FabricBlockEntityTypeBuilder.create(ParticleGeneratorBlockEntity::new, BLOCK_PG).build(null);
+			BlockEntityType.Builder.of(ParticleGeneratorBlockEntity::new, BLOCK_PG).build();
 
 	public static final SimpleParticleType PARTICLE_LOCATE = FabricParticleTypes.simple(true);
 
 	public static void register()
 	{
-		Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(ParticleGenerator.MOD_ID, "particle_generator"), BLOCK_PG);
-		Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(ParticleGenerator.MOD_ID, "particle_generator"), ITEM_PG);
-		Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, new ResourceLocation(ParticleGenerator.MOD_ID, "particle_generator"), TILE_ENTITY_PG);
-		Registry.register(BuiltInRegistries.PARTICLE_TYPE, new ResourceLocation(ParticleGenerator.MOD_ID, "locate"), PARTICLE_LOCATE);
+		Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(PgenMod.MOD_ID, "particle_generator"), BLOCK_PG);
+		Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(PgenMod.MOD_ID, "particle_generator"), ITEM_PG);
+		Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, new ResourceLocation(PgenMod.MOD_ID, "particle_generator"), TILE_ENTITY_PG);
+		Registry.register(BuiltInRegistries.PARTICLE_TYPE, new ResourceLocation(PgenMod.MOD_ID, "locate"), PARTICLE_LOCATE);
 	}
 }

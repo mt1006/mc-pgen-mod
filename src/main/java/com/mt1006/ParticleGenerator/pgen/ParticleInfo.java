@@ -19,10 +19,10 @@ import java.util.Arrays;
 public class ParticleInfo
 {
 	private ParticleOptions particle = null;
-	private Vec3 motion = new Vec3(0.0D, 0.0D, 0.0D);
-	private Vec3 motionRand = new Vec3(0.0D, 0.0D, 0.0D);
-	private Vec3 posOffset = new Vec3(0.0D, 0.0D, 0.0D);
-	private Vec3 posRand = new Vec3(0.0D, 0.0D, 0.0D);
+	private Vec3 motion = Vec3.ZERO;
+	private Vec3 motionRand = Vec3.ZERO;
+	private Vec3 posOffset = Vec3.ZERO;
+	private Vec3 posRand = Vec3.ZERO;
 	private int interval = 1;
 	private double probability = 1.0;
 	private int particleCount = 1;
@@ -58,7 +58,7 @@ public class ParticleInfo
 		if (nbt.contains("Probability")) { probability = nbt.getDouble("Probability"); }
 		if (nbt.contains("ParticleCount")) { particleCount = nbt.getInt("ParticleCount"); }
 		if (nbt.contains("ParticleMaxCount")) { particleMaxCount = nbt.getInt("ParticleMaxCount"); }
-		if (!motionRand.equals(new Vec3(0.0D, 0.0D, 0.0D)) || !posRand.equals(new Vec3(0.0D, 0.0D, 0.0D))) { useRand = true; }
+		if (!motionRand.equals(Vec3.ZERO) || !posRand.equals(Vec3.ZERO)) { useRand = true; }
 	}
 
 	private ParticleOptions loadComplexParticle(ParticleType particleType, CompoundTag nbt)
