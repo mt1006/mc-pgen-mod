@@ -22,14 +22,12 @@ public enum ParticlesPosition implements StringRepresentable
 		this.z = z;
 	}
 
-	@Override
-	public String toString()
+	@Override public String toString()
 	{
 		return name;
 	}
 
-	@Override
-	public @NotNull String getSerializedName()
+	@Override public @NotNull String getSerializedName()
 	{
 		return name;
 	}

@@ -2,9 +2,10 @@ package com.mt1006.ParticleGenerator.pgen.blockentity;
 
 import com.mt1006.ParticleGenerator.RegistryHandler;
 import com.mt1006.ParticleGenerator.pgen.ParticleGeneratorBlock;
-import com.mt1006.ParticleGenerator.pgen.blockstate.ParticlesPosition;
 import com.mt1006.ParticleGenerator.pgen.ParticleInfo;
+import com.mt1006.ParticleGenerator.pgen.blockstate.ParticlesPosition;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.protocol.Packet;
@@ -27,10 +28,9 @@ public class ParticleGeneratorBlockEntity extends BlockEntity
 		super(RegistryHandler.TILE_ENTITY_PG.get(), blockPos, blockState);
 	}
 
-	@Override
-	public void load(@NotNull CompoundTag nbt)
+	@Override public void loadAdditional(CompoundTag nbt, HolderLookup.Provider lookup)
 	{
-		super.load(nbt);
+		super.loadAdditional(nbt, lookup);
 		if (nbt.contains("Particles"))
 		{
 			ListTag particlesList = nbt.getList("Particles", 10); // 10 - CompoundNBT / CompoundTag
@@ -43,10 +43,9 @@ public class ParticleGeneratorBlockEntity extends BlockEntity
 		if (nbt.contains("UseAnimateTick")) { useAnimateTick = nbt.getBoolean("UseAnimateTick"); }
 	}
 
-	@Override
-	public void saveAdditional(@NotNull CompoundTag nbt)
+	@Override public void saveAdditional(CompoundTag nbt, HolderLookup.Provider lookup)
 	{
-		super.saveAdditional(nbt);
+		super.saveAdditional(nbt, lookup);
 		if (particles != null)
 		{
 			ListTag particlesList = new ListTag();
@@ -59,22 +58,14 @@ public class ParticleGeneratorBlockEntity extends BlockEntity
 		nbt.putBoolean("UseAnimateTick", useAnimateTick);
 	}
 
-	@Override
-	public @NotNull CompoundTag getUpdateTag()
+	@Override public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider lookup)
 	{
 		CompoundTag nbt = new CompoundTag();
-		saveAdditional(nbt);
+		saveAdditional(nbt, lookup);
 		return nbt;
 	}
 
-	@Override
-	public void handleUpdateTag(CompoundTag nbt)
-	{
-		this.load(nbt);
-	}
-
-	@Override
-	public @Nullable Packet<ClientGamePacketListener> getUpdatePacket()
+	@Override public @Nullable Packet<ClientGamePacketListener> getUpdatePacket()
 	{
 		return ClientboundBlockEntityDataPacket.create(this);
 	}

@@ -1,12 +1,12 @@
 package com.mt1006.ParticleGenerator.command;
 
-import com.mt1006.ParticleGenerator.ParticleGenerator;
+import com.mt1006.ParticleGenerator.PgenMod;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.server.command.ConfigCommand;
 
-@Mod.EventBusSubscriber(modid = ParticleGenerator.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(modid = PgenMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class RegisterCommands
 {
 	@SubscribeEvent
