@@ -7,7 +7,7 @@ import net.minecraftforge.network.*;
 
 public class PacketHandler
 {
-	public static final SimpleChannel INSTANCE = ChannelBuilder.named(new ResourceLocation(PgenMod.MOD_ID, "forge")).simpleChannel();
+	public static final SimpleChannel INSTANCE = ChannelBuilder.named(ResourceLocation.fromNamespaceAndPath(PgenMod.MOD_ID, "forge")).simpleChannel();
 	private static int index = 0;
 
 	public static void register()

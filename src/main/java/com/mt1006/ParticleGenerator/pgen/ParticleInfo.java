@@ -115,7 +115,7 @@ public class ParticleInfo
 		return nbt;
 	}
 
-	public void renderParticle(Level world, RandomSource random, double x, double y, double z)
+	public void renderParticle(Level level, RandomSource random, double x, double y, double z)
 	{
 		if (particle == null) { return; }
 		if (intervalCounter == interval)
@@ -135,14 +135,14 @@ public class ParticleInfo
 						double motionX = motion.x + (random.nextDouble() - 0.5) * motionRand.x;
 						double motionY = motion.y + (random.nextDouble() - 0.5) * motionRand.y;
 						double motionZ = motion.z + (random.nextDouble() - 0.5) * motionRand.z;
-						world.addParticle(particle, posX, posY, posZ, motionX, motionY, motionZ);
+						level.addParticle(particle, posX, posY, posZ, motionX, motionY, motionZ);
 					}
 					else
 					{
 						double posX = x + posOffset.x;
 						double posY = y + posOffset.y;
 						double posZ = z + posOffset.z;
-						world.addParticle(particle, posX, posY, posZ, motion.x, motion.y, motion.z);
+						level.addParticle(particle, posX, posY, posZ, motion.x, motion.y, motion.z);
 					}
 				}
 			}

@@ -21,16 +21,16 @@ public class RegistryHandler
 {
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, PgenMod.MOD_ID);
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PgenMod.MOD_ID);
-	public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, PgenMod.MOD_ID);
+	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, PgenMod.MOD_ID);
 	public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, PgenMod.MOD_ID);
 
 	public static final RegistryObject<Block> BLOCK_PG = BLOCKS.register("particle_generator",
-			() -> new ParticleGeneratorBlock(BlockBehaviour.Properties.of().strength(-1.0F, 3600000.8F).noLootTable().noOcclusion().noCollission().pushReaction(PushReaction.BLOCK)));
+			() -> new ParticleGeneratorBlock(BlockBehaviour.Properties.of().strength(-1.0f, 3600000.8f).noLootTable().noOcclusion().noCollission().pushReaction(PushReaction.BLOCK)));
 
 	public static final RegistryObject<Item> ITEM_PG = ITEMS.register("particle_generator",
 			() -> new BlockItem(BLOCK_PG.get(), new Item.Properties().rarity(Rarity.EPIC)));
 
-	public static final RegistryObject<BlockEntityType<ParticleGeneratorBlockEntity>> TILE_ENTITY_PG = TILE_ENTITY_TYPES.register("particle_generator",
+	public static final RegistryObject<BlockEntityType<ParticleGeneratorBlockEntity>> TILE_ENTITY_PG = BLOCK_ENTITY_TYPES.register("particle_generator",
 			() -> BlockEntityType.Builder.of(ParticleGeneratorBlockEntity::new, BLOCK_PG.get()).build(null));
 
 	public static final RegistryObject<SimpleParticleType> PARTICLE_LOCATE = PARTICLE_TYPES.register("locate",
@@ -41,7 +41,7 @@ public class RegistryHandler
 		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		BLOCKS.register(eventBus);
 		ITEMS.register(eventBus);
-		TILE_ENTITY_TYPES.register(eventBus);
+		BLOCK_ENTITY_TYPES.register(eventBus);
 		PARTICLE_TYPES.register(eventBus);
 	}
 }
