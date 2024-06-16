@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -25,7 +26,7 @@ public class ParticleGeneratorBlockEntity extends BlockEntity
 
 	public ParticleGeneratorBlockEntity(BlockPos blockPos, BlockState blockState)
 	{
-		super(RegistryHandler.TILE_ENTITY_PG, blockPos, blockState);
+		super(RegistryHandler.BLOCK_ENTITY_PG, blockPos, blockState);
 	}
 
 	@Override public void loadAdditional(CompoundTag nbt, HolderLookup.Provider lookup)
@@ -33,7 +34,7 @@ public class ParticleGeneratorBlockEntity extends BlockEntity
 		super.loadAdditional(nbt, lookup);
 		if (nbt.contains("Particles"))
 		{
-			ListTag particlesList = nbt.getList("Particles", 10); // 10 - CompoundNBT / CompoundTag
+			ListTag particlesList = nbt.getList("Particles", Tag.TAG_COMPOUND);
 			particles = new ParticleInfo[particlesList.size()];
 			for (int i = 0; i < particlesList.size(); i++)
 			{
@@ -70,10 +71,10 @@ public class ParticleGeneratorBlockEntity extends BlockEntity
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
-	public static void tick(Level world, BlockPos blockPos, BlockState blockState, ParticleGeneratorBlockEntity tileEntity)
+	public static void tick(Level level, BlockPos blockPos, BlockState blockState, ParticleGeneratorBlockEntity blockEntity)
 	{
-		if (tileEntity.useAnimateTick) { return; }
-		tileEntity.renderParticles();
+		if (blockEntity.useAnimateTick) { return; }
+		blockEntity.renderParticles();
 	}
 
 	public void renderParticles()

@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class PgenPacketS2C implements CustomPacketPayload
 {
-	public static final Type<PgenPacketS2C> TYPE = new Type<>(new ResourceLocation(PgenMod.MOD_ID, "fabric_s2c"));
+	public static final Type<PgenPacketS2C> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(PgenMod.MOD_ID, "fabric_s2c"));
 	public static final StreamCodec<FriendlyByteBuf, PgenPacketS2C> CODEC = StreamCodec.of((b, p) -> p.encode(b), PgenPacketS2C::new);
 
 	public static final int OP_SHOW = 1;
@@ -45,9 +45,9 @@ public class PgenPacketS2C implements CustomPacketPayload
 	{
 		switch (operation)
 		{
-			case OP_SHOW: ParticleGeneratorBlock.showShape = true; break;
-			case OP_HIDE: ParticleGeneratorBlock.showShape = false; break;
-			case OP_LOCATE: ParticleGeneratorBlock.locate(); break;
+			case OP_SHOW -> ParticleGeneratorBlock.showShape = true;
+			case OP_HIDE -> ParticleGeneratorBlock.showShape = false;
+			case OP_LOCATE -> ParticleGeneratorBlock.locate();
 		}
 	}
 

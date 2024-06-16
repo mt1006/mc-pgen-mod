@@ -23,7 +23,7 @@ public class LocateParticle extends TextureSheetParticle
 
 		setSprite(itemModel.getParticleIcon());
 
-		gravity = 0.0F;
+		gravity = 0.0f;
 		lifetime = 80;
 		hasPhysics = false;
 	}
@@ -35,7 +35,7 @@ public class LocateParticle extends TextureSheetParticle
 
 	@Override public float getQuadSize(float arg)
 	{
-		return 0.5F;
+		return 0.5f;
 	}
 
 	public static class Factory implements ParticleProvider<SimpleParticleType>

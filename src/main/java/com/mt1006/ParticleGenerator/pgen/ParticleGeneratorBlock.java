@@ -55,29 +55,29 @@ public class ParticleGeneratorBlock extends Block implements EntityBlock
 		return true;
 	}
 
-	@Override public void animateTick(@NotNull BlockState blockState, Level world, @NotNull BlockPos blockPos, @NotNull RandomSource random)
+	@Override public void animateTick(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos, @NotNull RandomSource random)
 	{
-		BlockEntity tileEntity = world.getBlockEntity(blockPos);
-		if (tileEntity instanceof ParticleGeneratorBlockEntity)
+		BlockEntity blockEntity = level.getBlockEntity(blockPos);
+		if (blockEntity instanceof ParticleGeneratorBlockEntity)
 		{
-			if(((ParticleGeneratorBlockEntity)tileEntity).useAnimateTick)
+			if(((ParticleGeneratorBlockEntity)blockEntity).useAnimateTick)
 			{
-				((ParticleGeneratorBlockEntity)tileEntity).renderParticles();
+				((ParticleGeneratorBlockEntity)blockEntity).renderParticles();
 			}
 		}
 		if (locateCounter > 0)
 		{
-			world.addParticle(RegistryHandler.PARTICLE_LOCATE,
+			level.addParticle(RegistryHandler.PARTICLE_LOCATE,
 					blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, 0.0, 0.0, 0.0);
 			locateCounter--;
 		}
 	}
 
 	@Override @Nullable public <T extends BlockEntity> BlockEntityTicker<T>
-			getTicker(Level world, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType)
+			getTicker(Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType)
 	{
-		return world.isClientSide
-				? createTickerHelper(blockEntityType, RegistryHandler.TILE_ENTITY_PG, ParticleGeneratorBlockEntity::tick)
+		return level.isClientSide
+				? createTickerHelper(blockEntityType, RegistryHandler.BLOCK_ENTITY_PG, ParticleGeneratorBlockEntity::tick)
 				: null;
 	}
 
