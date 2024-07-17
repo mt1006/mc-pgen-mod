@@ -1,26 +1,30 @@
 package com.mt1006.ParticleGenerator.network;
 
 import com.mt1006.ParticleGenerator.PgenMod;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.*;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
+@EventBusSubscriber(modid = PgenMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class PacketHandler
 {
-	public static final SimpleChannel INSTANCE = ChannelBuilder.named(ResourceLocation.fromNamespaceAndPath(PgenMod.MOD_ID, "forge")).simpleChannel();
-	private static int index = 0;
+	public static final CustomPacketPayload.Type<CustomPacketPayload> INSTANCE =
+			new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(PgenMod.MOD_ID, "neoforge"));
 
-	public static void register()
+	@SubscribeEvent
+	public static void register(RegisterPayloadHandlersEvent event)
 	{
-		INSTANCE.messageBuilder(PgenPacketS2C.class, index++, NetworkDirection.PLAY_TO_CLIENT)
-				.decoder(PgenPacketS2C::new)
-				.encoder(PgenPacketS2C::encode)
-				.consumerMainThread(PgenPacketS2C::handle)
-				.add();
+		PayloadRegistrar registrar = event.registrar("1");
+		registrar.playToClient(PgenPacketS2C.TYPE, PgenPacketS2C.STREAM_CODEC, PgenPacketS2C::handle);
 	}
 
 	public static void sendToClient(PgenPacketS2C msg, ServerPlayer serverPlayer)
 	{
-		INSTANCE.send(msg, PacketDistributor.PLAYER.with(serverPlayer));
+		PacketDistributor.sendToPlayer(serverPlayer, msg);
 	}
 }

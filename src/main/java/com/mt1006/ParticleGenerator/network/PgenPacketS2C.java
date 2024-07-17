@@ -1,37 +1,47 @@
 package com.mt1006.ParticleGenerator.network;
 
+import com.mt1006.ParticleGenerator.PgenMod;
 import com.mt1006.ParticleGenerator.pgen.ParticleGeneratorBlock;
-import net.minecraft.network.FriendlyByteBuf;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.event.network.CustomPayloadEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import org.jetbrains.annotations.NotNull;
 
-public class PgenPacketS2C
+public class PgenPacketS2C implements CustomPacketPayload
 {
-	public static int OP_SHOW = 1;
-	public static int OP_HIDE = 2;
-	public static int OP_LOCATE = 3;
+	public static final int OP_SHOW = 1;
+	public static final int OP_HIDE = 2;
+	public static final int OP_LOCATE = 3;
 	private final int operation;
+
+	public static final CustomPacketPayload.Type<PgenPacketS2C> TYPE =
+			new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(PgenMod.MOD_ID, "neoforge_s2c"));
+
+	public static final StreamCodec<ByteBuf, PgenPacketS2C> STREAM_CODEC = StreamCodec.composite(
+			ByteBufCodecs.VAR_INT, (packet) -> packet.operation, PgenPacketS2C::new);
 
 	public PgenPacketS2C(int operation)
 	{
 		this.operation = operation;
 	}
 
-	public PgenPacketS2C(FriendlyByteBuf buf)
+	@Override public @NotNull CustomPacketPayload.Type<? extends CustomPacketPayload> type()
 	{
-		operation = buf.readInt();
+		return TYPE;
 	}
 
-	public void encode(FriendlyByteBuf buf)
+	public static void handle(PgenPacketS2C packet, IPayloadContext ctx)
 	{
-		buf.writeInt(operation);
-	}
-
-	public void handle(CustomPayloadEvent.Context ctx)
-	{
-		if (operation == OP_SHOW) { ParticleGeneratorBlock.showShape = true; }
-		else if (operation == OP_HIDE) { ParticleGeneratorBlock.showShape = false; }
-		else if (operation == OP_LOCATE) { ParticleGeneratorBlock.locate(); }
+		switch (packet.operation)
+		{
+			case OP_SHOW -> ParticleGeneratorBlock.showShape = true;
+			case OP_HIDE -> ParticleGeneratorBlock.showShape = false;
+			case OP_LOCATE -> ParticleGeneratorBlock.locate();
+		}
 	}
 
 	public static void send(ServerPlayer serverPlayer, int op)
