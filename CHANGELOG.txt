@@ -1,3 +1,7 @@
+===Version 1.0.3===
+-Help message is now translatable.
+-Version information is no longer sent to logs during startup.
+
 ===Version 1.0.2===
 -Minor improvements.
 
