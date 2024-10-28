@@ -1,4 +1,4 @@
-package com.mt1006.ParticleGenerator.pgen.blockstate;
+package com.mt1006.pgen.pgen.blockstate;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.StringRepresentable;

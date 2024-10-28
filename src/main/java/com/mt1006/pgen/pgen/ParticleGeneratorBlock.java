@@ -1,8 +1,8 @@
-package com.mt1006.ParticleGenerator.pgen;
+package com.mt1006.pgen.pgen;
 
-import com.mt1006.ParticleGenerator.RegistryHandler;
-import com.mt1006.ParticleGenerator.pgen.blockentity.ParticleGeneratorBlockEntity;
-import com.mt1006.ParticleGenerator.pgen.blockstate.ParticlesPosition;
+import com.mt1006.pgen.RegistryHandler;
+import com.mt1006.pgen.pgen.blockentity.ParticleGeneratorBlockEntity;
+import com.mt1006.pgen.pgen.blockstate.ParticlesPosition;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
@@ -50,7 +50,7 @@ public class ParticleGeneratorBlock extends Block implements EntityBlock
 		return showShape ? super.getShape(blockState, blockReader, blockPos, ctx) : Block.box(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 	}
 
-	@Override public boolean propagatesSkylightDown(@NotNull BlockState blockState, @NotNull BlockGetter blockReader, @NotNull BlockPos blockPos)
+	@Override public boolean propagatesSkylightDown(@NotNull BlockState blockState)
 	{
 		return true;
 	}
@@ -81,7 +81,7 @@ public class ParticleGeneratorBlock extends Block implements EntityBlock
 				: null;
 	}
 
-	protected static <E extends BlockEntity, A extends BlockEntity>BlockEntityTicker<A>
+	protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A>
 			createTickerHelper(BlockEntityType<A> a, BlockEntityType<E> b, BlockEntityTicker<? super E> c)
 	{
 		return a == b ? (BlockEntityTicker<A>)c : null;

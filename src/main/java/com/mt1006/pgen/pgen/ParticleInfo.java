@@ -1,6 +1,7 @@
-package com.mt1006.ParticleGenerator.pgen;
+package com.mt1006.pgen.pgen;
 
-import com.mt1006.ParticleGenerator.utils.Utils;
+import com.mt1006.pgen.utils.Utils;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -43,7 +44,8 @@ public class ParticleInfo
 		if (nbt.contains("id"))
 		{
 			ResourceLocation resLoc = Utils.resourceLocationFromString(nbt.getString("id"));
-			ParticleType<?> particleType = BuiltInRegistries.PARTICLE_TYPE.get(resLoc);
+			Holder.Reference<ParticleType<?>> ref = BuiltInRegistries.PARTICLE_TYPE.get(resLoc).orElse(null);
+			ParticleType<?> particleType = ref != null ? ref.value() : null;
 			if (particleType != null)
 			{
 				if (particleType instanceof ParticleOptions) { particle = (ParticleOptions)particleType; }
@@ -77,7 +79,8 @@ public class ParticleInfo
 			if (additionalTags != null && additionalTags.contains("id"))
 			{
 				ResourceLocation resLoc = Utils.resourceLocationFromString(additionalTags.getString("id"));
-				block = BuiltInRegistries.BLOCK.get(resLoc);
+				Holder.Reference<Block> ref = BuiltInRegistries.BLOCK.get(resLoc).orElse(null);
+				block = ref != null ? ref.value() : null;
 			}
 			if (block == null) { block = Blocks.AIR; }
 			return new BlockParticleOption(particleType, block.defaultBlockState());
@@ -88,7 +91,8 @@ public class ParticleInfo
 			if (additionalTags != null && additionalTags.contains("id"))
 			{
 				ResourceLocation resLoc = Utils.resourceLocationFromString(additionalTags.getString("id"));
-				item = BuiltInRegistries.ITEM.get(resLoc);
+				Holder.Reference<Item> ref = BuiltInRegistries.ITEM.get(resLoc).orElse(null);
+				item = ref != null ? ref.value() : null;
 			}
 			if (item == null) { item = Items.AIR; }
 			return new ItemParticleOption(particleType, new ItemStack(item));

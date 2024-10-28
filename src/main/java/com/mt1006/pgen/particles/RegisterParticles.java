@@ -1,7 +1,7 @@
-package com.mt1006.ParticleGenerator.particles;
+package com.mt1006.pgen.particles;
 
-import com.mt1006.ParticleGenerator.PgenMod;
-import com.mt1006.ParticleGenerator.RegistryHandler;
+import com.mt1006.pgen.PgenMod;
+import com.mt1006.pgen.RegistryHandler;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
@@ -15,6 +15,6 @@ public class RegisterParticles
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void registerParticles(RegisterParticleProvidersEvent event)
 	{
-		Minecraft.getInstance().particleEngine.register(RegistryHandler.PARTICLE_LOCATE.get(), new LocateParticle.Factory());
+		Minecraft.getInstance().particleEngine.register(RegistryHandler.PARTICLE_LOCATE.get(), new LocateParticle.Provider());
 	}
 }

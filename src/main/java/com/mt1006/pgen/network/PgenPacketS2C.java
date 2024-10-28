@@ -1,7 +1,7 @@
-package com.mt1006.ParticleGenerator.network;
+package com.mt1006.pgen.network;
 
-import com.mt1006.ParticleGenerator.PgenMod;
-import com.mt1006.ParticleGenerator.pgen.ParticleGeneratorBlock;
+import com.mt1006.pgen.PgenMod;
+import com.mt1006.pgen.pgen.ParticleGeneratorBlock;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;

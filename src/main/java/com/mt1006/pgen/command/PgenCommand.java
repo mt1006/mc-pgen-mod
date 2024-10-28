@@ -1,10 +1,10 @@
-package com.mt1006.ParticleGenerator.command;
+package com.mt1006.pgen.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
-import com.mt1006.ParticleGenerator.PgenMod;
-import com.mt1006.ParticleGenerator.network.PgenPacketS2C;
+import com.mt1006.pgen.PgenMod;
+import com.mt1006.pgen.network.PgenPacketS2C;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -75,49 +75,21 @@ public class PgenCommand
 
 	private static int help(CommandContext<CommandSourceStack> ctx)
 	{
-		//TODO: Internationalization
-		List<String> text = Arrays.asList(
-				PgenMod.getName() + " - Help",
-				"Commands:",
-				"  /pgen show - Shows edges of particle generators",
-				"  /pgen hide - Hides edges of particle generators",
-				"  /pgen locate - Adds markers inside particle generators",
-				"  /pgen info - Displays information about mod",
-				"  /pgen help - Displays this message",
-				"Particle Generator block states:",
-				"  >position=[center(default)/top/bottom] -",
-				"    determines position of particles generation",
-				"Particle Generator NBT tags:",
-				"  >Particles:[{...}] - list of compounds:",
-				"    >id:\"...\" - particle id",
-				"    >Motion:[x,y,z] - particle velocities [m/tick] (in most cases)",
-				"    >MotionRand:[x,y,z] - randomization of \"Motion\" values",
-				"    >PositionOffset:[x,y,z] - offset of particle positions",
-				"    >PositionRand:[x,y,z] - randomization of particle positions",
-				"    >Interval:int - interval between particles [ticks]",
-				"    >Probability:double - probability of particle spawning",
-				"    >ParticleCount:int - number of particles when spawned",
-				"    >ParticleMaxCount:int - maximum number of particles",
-				"    >AdditionalTags:{} - additional tags (like block id)",
-				"  >UseAnimateTick:bool - spawn particles on animateTick",
-				"Useful Minecraft BlockItem data components:",
-				"  >block_state:{...} - specifies block states",
-				"  >block_entity_data:{id:\"pgen:particle_generator\",...} -",
-				"    specifies block NBT tags",
-				"Example usages:");
-		for (String str : text)
-		{
-			ctx.getSource().sendSuccess(() -> Component.literal(str), false);
-		}
-		ctx.getSource().sendSuccess(() -> Component.literal("  >Simple smoke Particle Generator:"), false);
-		ctx.getSource().sendSuccess(() -> Component.literal("    ").append(Component.literal("[using /setblock]").withStyle((style) ->
+		CommandSourceStack source = ctx.getSource();
+
+		source.sendSuccess(() -> Component.translatable("pgen.help.message", PgenMod.getName()), false);
+		source.sendSuccess(() -> Component.translatable("pgen.help.examples", PgenMod.getName()), false);
+
+		source.sendSuccess(() -> Component.translatable("pgen.help.examples.simple_smoke"), false);
+		source.sendSuccess(() -> Component.literal("    ").append(Component.translatable("pgen.help.examples.using", "/setblock").withStyle((style) ->
 				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_SMOKE_SETBLOCK)))), false);
-		ctx.getSource().sendSuccess(() -> Component.literal("    ").append(Component.literal("[using /give]").withStyle((style) ->
+		source.sendSuccess(() -> Component.literal("    ").append(Component.translatable("pgen.help.examples.using", "/give").withStyle((style) ->
 				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_SMOKE_GIVE)))), false);
-		ctx.getSource().sendSuccess(() -> Component.literal("  >Particle Generator like campfire:"), false);
-		ctx.getSource().sendSuccess(() -> Component.literal("    ").append(Component.literal("[using /setblock]").withStyle((style) ->
+
+		source.sendSuccess(() -> Component.translatable("pgen.help.examples.like_campfire"), false);
+		source.sendSuccess(() -> Component.literal("    ").append(Component.translatable("pgen.help.examples.using", "/setblock").withStyle((style) ->
 				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_LIKE_CAMPFIRE_SETBLOCK)))), false);
-		ctx.getSource().sendSuccess(() -> Component.literal("    ").append(Component.literal("[using /give]").withStyle((style) ->
+		source.sendSuccess(() -> Component.literal("    ").append(Component.translatable("pgen.help.examples.using", "/give").withStyle((style) ->
 				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_LIKE_CAMPFIRE_GIVE)))), false);
 		return 1;
 	}
