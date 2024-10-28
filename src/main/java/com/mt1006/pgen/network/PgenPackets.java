@@ -1,6 +1,6 @@
-package com.mt1006.ParticleGenerator.network;
+package com.mt1006.pgen.network;
 
-import com.mt1006.ParticleGenerator.PgenMod;
+import com.mt1006.pgen.PgenMod;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 

@@ -4,7 +4,7 @@
 	"version": "${version}",
 
 	"name": "ParticleGenerator",
-	"description": "Adds particle generator",
+	"description": "Adds particle generator.",
 	"authors": ["mt1006"],
 	"contact":
     {
@@ -19,8 +19,8 @@
 	"environment": "*",
 	"entrypoints":
     {
-		"main": ["com.mt1006.ParticleGenerator.PgenMod"],
-		"client": ["com.mt1006.ParticleGenerator.ClientEvents"]
+		"main": ["com.mt1006.pgen.PgenMod"],
+		"client": ["com.mt1006.pgen.ClientEvents"]
 	},
 
 	"depends":

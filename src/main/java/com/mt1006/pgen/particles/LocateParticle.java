@@ -1,6 +1,6 @@
-package com.mt1006.ParticleGenerator.particles;
+package com.mt1006.pgen.particles;
 
-import com.mt1006.ParticleGenerator.RegistryHandler;
+import com.mt1006.pgen.RegistryHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -10,17 +10,16 @@ import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public class LocateParticle extends TextureSheetParticle
 {
-	private LocateParticle(ClientLevel clientLevel, double x, double y, double z, Item itemProvider)
+	private LocateParticle(ClientLevel level, double x, double y, double z, Item item)
 	{
-		super(clientLevel, x, y, z);
+		super(level, x, y, z);
 
-		BakedModel itemModel = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getItemModel(itemProvider);
-		if (itemModel == null) { return; }
-
+		BakedModel itemModel = Minecraft.getInstance().getItemRenderer().getModel(new ItemStack(item), null, null, 0);
 		setSprite(itemModel.getParticleIcon());
 
 		gravity = 0.0f;
@@ -38,14 +37,14 @@ public class LocateParticle extends TextureSheetParticle
 		return 0.5f;
 	}
 
-	public static class Factory implements ParticleProvider<SimpleParticleType>
+	public static class Provider implements ParticleProvider<SimpleParticleType>
 	{
-		public Factory() {}
+		public Provider() {}
 
-		@Override public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel clientLevel,
+		@Override public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel level,
 												 double x, double y, double z, double mx, double my, double mz)
 		{
-			return new LocateParticle(clientLevel, x, y, z, RegistryHandler.BLOCK_PG.asItem());
+			return new LocateParticle(level, x, y, z, RegistryHandler.BLOCK_PG.asItem());
 		}
 	}
 }
