@@ -7,5 +7,5 @@
   "pgen.help.examples.like_campfire": "  >Generator dymu podobny do ogniska:",
   "pgen.help.examples.using": "[używając %s]",
 
-  "modmenu.descriptionTranslation.pgen": "Dodaje generator cząsteczek."
+  "modmenu.descriptionTranslation.pgen": "Dodaje generator cząsteczek, który pozwala na generowanie wielu cząsteczek na określonej pozycji."
 }
