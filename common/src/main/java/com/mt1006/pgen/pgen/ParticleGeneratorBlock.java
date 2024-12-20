@@ -25,8 +25,6 @@ public class ParticleGeneratorBlock extends BaseEntityBlock
 	public static final MapCodec<ParticleGeneratorBlock> CODEC = simpleCodec(ParticleGeneratorBlock::new);
 	public static final EnumProperty<ParticlesPosition> PARTICLES_POSITION = EnumProperty.create("position", ParticlesPosition.class);
 	public static boolean showShape = false;
-	private static int locateCounter = 0;
-	private static final int MAX_TO_LOCATE = 16;
 
 	public ParticleGeneratorBlock(BlockBehaviour.Properties properties)
 	{
@@ -65,12 +63,6 @@ public class ParticleGeneratorBlock extends BaseEntityBlock
 				((ParticleGeneratorBlockEntity)blockEntity).renderParticles();
 			}
 		}
-		if (locateCounter > 0)
-		{
-			level.addParticle(PgenMod.loaderInterface.getParticle(),
-					blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, 0.0, 0.0, 0.0);
-			locateCounter--;
-		}
 	}
 
 	@Override @Nullable public <T extends BlockEntity> BlockEntityTicker<T>
@@ -85,11 +77,6 @@ public class ParticleGeneratorBlock extends BaseEntityBlock
 			createTickerHelper(BlockEntityType<A> a, BlockEntityType<E> b, BlockEntityTicker<? super E> c)
 	{
 		return a == b ? (BlockEntityTicker<A>)c : null;
-	}
-
-	public static void locate()
-	{
-		locateCounter = MAX_TO_LOCATE;
 	}
 
 	@Override protected @NotNull MapCodec<? extends BaseEntityBlock> codec()

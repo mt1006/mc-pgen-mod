@@ -4,9 +4,7 @@ import com.mt1006.pgen.PgenMod;
 import com.mt1006.pgen.pgen.ParticleGeneratorBlock;
 import com.mt1006.pgen.pgen.ParticleGeneratorBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.core.Registry;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -34,13 +32,10 @@ public class RegistryHandler
 	public static final BlockEntityType<ParticleGeneratorBlockEntity> BLOCK_ENTITY_PG =
 			FabricBlockEntityTypeBuilder.create(ParticleGeneratorBlockEntity::new, BLOCK_PG).build();
 
-	public static final SimpleParticleType PARTICLE_LOCATE = FabricParticleTypes.simple(true);
-
 	public static void register()
 	{
 		Registry.register(BuiltInRegistries.BLOCK, PG_ID, BLOCK_PG);
 		Registry.register(BuiltInRegistries.ITEM, PG_ID, ITEM_PG);
 		Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, PG_ID, BLOCK_ENTITY_PG);
-		Registry.register(BuiltInRegistries.PARTICLE_TYPE, ResourceLocation.fromNamespaceAndPath(PgenMod.MOD_ID, "locate"), PARTICLE_LOCATE);
 	}
 }

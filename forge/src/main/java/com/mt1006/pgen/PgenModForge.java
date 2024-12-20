@@ -4,7 +4,6 @@ import com.mt1006.pgen.forge.PacketHandler;
 import com.mt1006.pgen.forge.RegistryHandler;
 import com.mt1006.pgen.network.PgenPacketS2C;
 import com.mt1006.pgen.pgen.ParticleGeneratorBlockEntity;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -47,11 +46,6 @@ public class PgenModForge implements PgenModLoaderInterface
 	@Override public BlockEntityType<ParticleGeneratorBlockEntity> getBlockEntity()
 	{
 		return RegistryHandler.BLOCK_ENTITY_PG.get();
-	}
-
-	@Override public SimpleParticleType getParticle()
-	{
-		return RegistryHandler.PARTICLE_LOCATE.get();
 	}
 
 	@Override public void sendPacketToClient(ServerPlayer player, PgenPacketS2C packet)

@@ -30,7 +30,6 @@ public class PgenCommand
 				register(Commands.literal("particlegenerator").requires((source) -> source.hasPermission(2)).
 				then(Commands.literal("show").executes(PgenCommand::show)).
 				then(Commands.literal("hide").executes(PgenCommand::hide)).
-				then(Commands.literal("locate").executes(PgenCommand::locate)).
 				then(Commands.literal("help").executes(PgenCommand::help)).
 				then(Commands.literal("info").executes(PgenCommand::info)));
 		dispatcher.register(Commands.literal("pgen").requires((source) -> source.hasPermission(2)).
@@ -54,17 +53,6 @@ public class PgenCommand
 		if (entity instanceof ServerPlayer)
 		{
 			PgenPacketS2C.send((ServerPlayer)entity, PgenPacketS2C.OP_HIDE);
-			return 1;
-		}
-		return 0;
-	}
-
-	private static int locate(CommandContext<CommandSourceStack> ctx)
-	{
-		Entity entity = ctx.getSource().getEntity();
-		if (entity instanceof ServerPlayer)
-		{
-			PgenPacketS2C.send((ServerPlayer)entity, PgenPacketS2C.OP_LOCATE);
 			return 1;
 		}
 		return 0;

@@ -17,7 +17,6 @@ public class PgenPacketS2C implements CustomPacketPayload
 
 	public static final int OP_SHOW = 1;
 	public static final int OP_HIDE = 2;
-	public static final int OP_LOCATE = 3;
 
 	private final int operation;
 
@@ -47,7 +46,6 @@ public class PgenPacketS2C implements CustomPacketPayload
 		{
 			case OP_SHOW -> ParticleGeneratorBlock.showShape = true;
 			case OP_HIDE -> ParticleGeneratorBlock.showShape = false;
-			case OP_LOCATE -> ParticleGeneratorBlock.locate();
 		}
 	}
 

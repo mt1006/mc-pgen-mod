@@ -10,7 +10,6 @@ public class ClientInitializer implements ClientModInitializer
 {
 	@Override public void onInitializeClient()
 	{
-		RegisterParticles.registerParticles();
 		BlockEntityRenderers.register(RegistryHandler.BLOCK_ENTITY_PG, ParticleGeneratorBlockEntityRenderer::new);
 
 		PacketHandler.register();

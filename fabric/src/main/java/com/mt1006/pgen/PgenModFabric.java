@@ -9,7 +9,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -48,11 +47,6 @@ public class PgenModFabric implements ModInitializer, PgenModLoaderInterface
 	@Override public BlockEntityType<ParticleGeneratorBlockEntity> getBlockEntity()
 	{
 		return RegistryHandler.BLOCK_ENTITY_PG;
-	}
-
-	@Override public SimpleParticleType getParticle()
-	{
-		return RegistryHandler.PARTICLE_LOCATE;
 	}
 
 	@Override public void sendPacketToClient(ServerPlayer player, PgenPacketS2C packet)

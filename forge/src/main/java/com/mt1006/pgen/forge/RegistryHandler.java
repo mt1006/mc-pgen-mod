@@ -3,8 +3,6 @@ package com.mt1006.pgen.forge;
 import com.mt1006.pgen.PgenMod;
 import com.mt1006.pgen.pgen.ParticleGeneratorBlock;
 import com.mt1006.pgen.pgen.ParticleGeneratorBlockEntity;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -27,7 +25,6 @@ public class RegistryHandler
 	private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, PgenMod.MOD_ID);
 	private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PgenMod.MOD_ID);
 	private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, PgenMod.MOD_ID);
-	private static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, PgenMod.MOD_ID);
 
 	private static final ResourceKey<Block> BLOCK_ID = ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(PgenMod.MOD_ID, "particle_generator"));
 	private static final ResourceKey<Item> ITEM_ID = ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(PgenMod.MOD_ID, "particle_generator"));
@@ -42,14 +39,10 @@ public class RegistryHandler
 	public static final RegistryObject<BlockEntityType<ParticleGeneratorBlockEntity>> BLOCK_ENTITY_PG = BLOCK_ENTITY_TYPES.register("particle_generator",
 			() -> new BlockEntityType<>(ParticleGeneratorBlockEntity::new, Set.of(BLOCK_PG.get())));
 
-	public static final RegistryObject<SimpleParticleType> PARTICLE_LOCATE = PARTICLE_TYPES.register("locate",
-			() -> new SimpleParticleType(true));
-
 	public static void register(IEventBus eventBus)
 	{
 		BLOCKS.register(eventBus);
 		ITEMS.register(eventBus);
 		BLOCK_ENTITY_TYPES.register(eventBus);
-		PARTICLE_TYPES.register(eventBus);
 	}
 }
