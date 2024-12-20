@@ -1,14 +1,13 @@
 package com.mt1006.pgen.pgen;
 
+import com.mojang.serialization.MapCodec;
 import com.mt1006.pgen.PgenMod;
-import com.mt1006.pgen.pgen.blockentity.ParticleGeneratorBlockEntity;
-import com.mt1006.pgen.pgen.blockstate.ParticlesPosition;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -21,8 +20,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ParticleGeneratorBlock extends Block implements EntityBlock
+public class ParticleGeneratorBlock extends BaseEntityBlock
 {
+	public static final MapCodec<ParticleGeneratorBlock> CODEC = simpleCodec(ParticleGeneratorBlock::new);
 	public static final EnumProperty<ParticlesPosition> PARTICLES_POSITION = EnumProperty.create("position", ParticlesPosition.class);
 	public static boolean showShape = false;
 	private static int locateCounter = 0;
@@ -33,7 +33,7 @@ public class ParticleGeneratorBlock extends Block implements EntityBlock
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(PARTICLES_POSITION, ParticlesPosition.CENTER));
 	}
-	
+
 	@Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
 	{
 		builder.add(PARTICLES_POSITION);
@@ -90,5 +90,10 @@ public class ParticleGeneratorBlock extends Block implements EntityBlock
 	public static void locate()
 	{
 		locateCounter = MAX_TO_LOCATE;
+	}
+
+	@Override protected @NotNull MapCodec<? extends BaseEntityBlock> codec()
+	{
+		return CODEC;
 	}
 }

@@ -2,7 +2,7 @@ package com.mt1006.pgen.fabric;
 
 import com.mt1006.pgen.PgenMod;
 import com.mt1006.pgen.pgen.ParticleGeneratorBlock;
-import com.mt1006.pgen.pgen.blockentity.ParticleGeneratorBlockEntity;
+import com.mt1006.pgen.pgen.ParticleGeneratorBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.core.Registry;

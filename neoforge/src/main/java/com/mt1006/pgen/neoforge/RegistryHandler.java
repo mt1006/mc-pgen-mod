@@ -2,7 +2,7 @@ package com.mt1006.pgen.neoforge;
 
 import com.mt1006.pgen.PgenMod;
 import com.mt1006.pgen.pgen.ParticleGeneratorBlock;
-import com.mt1006.pgen.pgen.blockentity.ParticleGeneratorBlockEntity;
+import com.mt1006.pgen.pgen.ParticleGeneratorBlockEntity;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;

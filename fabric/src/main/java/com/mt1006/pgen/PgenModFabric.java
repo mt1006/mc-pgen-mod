@@ -3,7 +3,7 @@ package com.mt1006.pgen;
 import com.mt1006.pgen.fabric.RegisterCommands;
 import com.mt1006.pgen.fabric.RegistryHandler;
 import com.mt1006.pgen.network.PgenPacketS2C;
-import com.mt1006.pgen.pgen.blockentity.ParticleGeneratorBlockEntity;
+import com.mt1006.pgen.pgen.ParticleGeneratorBlockEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;

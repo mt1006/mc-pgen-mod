@@ -2,7 +2,7 @@ package com.mt1006.pgen;
 
 import com.mt1006.pgen.neoforge.RegistryHandler;
 import com.mt1006.pgen.network.PgenPacketS2C;
-import com.mt1006.pgen.pgen.blockentity.ParticleGeneratorBlockEntity;
+import com.mt1006.pgen.pgen.ParticleGeneratorBlockEntity;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.Block;

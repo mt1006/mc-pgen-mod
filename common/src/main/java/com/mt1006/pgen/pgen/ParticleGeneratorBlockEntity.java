@@ -1,9 +1,6 @@
-package com.mt1006.pgen.pgen.blockentity;
+package com.mt1006.pgen.pgen;
 
 import com.mt1006.pgen.PgenMod;
-import com.mt1006.pgen.pgen.ParticleGeneratorBlock;
-import com.mt1006.pgen.pgen.ParticleInfo;
-import com.mt1006.pgen.pgen.blockstate.ParticlesPosition;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;

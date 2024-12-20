@@ -20,7 +20,9 @@
 	"entrypoints":
 	{
 		"main": ["com.mt1006.pgen.PgenModFabric"],
-		"client": ["com.mt1006.pgen.fabric.ClientEvents"]
+		"client": [
+			"com.mt1006.pgen.fabric.ClientInitializer"
+		]
 	},
 
 	"depends":
