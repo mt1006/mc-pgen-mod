@@ -1,0 +1,11 @@
+{
+  "block.pgen.particle_generator": "Generator cząsteczek",
+
+  "pgen.help.message": "%s - §lPomoc§r\nPolecenia:\n  /pgen show - Pokazuje krawędzie generatorów cząsteczek\n  /pgen hide - Ukrywa krawędzie generatorów cząsteczek\n  /pgen info - Pokazuje informacje o modzie\n  /pgen help - Pokazuje tą wiadomość\nStany bloku generatora cząsteczek:\n  >position=[center(default)/top/bottom] -\n    określa pozycję generowania cząsteczek\nTagi NBT generatora cząsteczek:\n  >Particles:[{...}] - lista cząsteczek:\n    >id:\"...\" - id cząsteczki\n    >Motion:[x,y,z] - prędkość cząsteczek [m/tick] (zazwyczaj)\n    >MotionRand:[x,y,z] - losowość wartości \"Motion\"\n    >PositionOffset:[x,y,z] - przesunięcie pozycji cząsteczek\n    >PositionRand:[x,y,z] - losowość pozycji cząsteczek\n    >Interval:int - przerwa czasowa między cząsteczkami [ticks]\n    >Probability:double - prawdopodobieństwo wygenerowania\n    >ParticleCount:int - ilość cząsteczek przy wygenerowaniu\n    >ParticleMaxCount:int - maksymalna ilość cząsteczek\n    >AdditionalTags:{} - dodatkowe tagi (np. id bloku)\n  >UseAnimateTick:bool - generuje przy wywołaniu animateTick\nPrzydatne komponenty przedmiotów:\n  >block_state:{...} - określa stany bloku\n  >block_entity_data:{id:\"pgen:particle_generator\",...} -\n    określa tagi NBT bloku",
+  "pgen.help.examples": "Przykłady użycia:",
+  "pgen.help.examples.simple_smoke": "  >Prosty generator dymu:",
+  "pgen.help.examples.like_campfire": "  >Generator dymu podobny do ogniska:",
+  "pgen.help.examples.using": "[używając %s]",
+
+  "modmenu.descriptionTranslation.pgen": "Dodaje generator cząsteczek, który pozwala na generowanie wielu cząsteczek na określonej pozycji."
+}
