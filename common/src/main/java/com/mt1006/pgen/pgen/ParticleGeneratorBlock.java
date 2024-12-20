@@ -8,6 +8,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -65,22 +66,27 @@ public class ParticleGeneratorBlock extends BaseEntityBlock
 		}
 	}
 
-	@Override @Nullable public <T extends BlockEntity> BlockEntityTicker<T>
-			getTicker(Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType)
+	@Override @Nullable public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
+			Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType)
 	{
 		return level.isClientSide
 				? createTickerHelper(blockEntityType, PgenMod.loaderInterface.getBlockEntity(), ParticleGeneratorBlockEntity::tick)
 				: null;
 	}
 
-	protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A>
-			createTickerHelper(BlockEntityType<A> a, BlockEntityType<E> b, BlockEntityTicker<? super E> c)
+	@Override protected @NotNull RenderShape getRenderShape(BlockState state)
 	{
-		return a == b ? (BlockEntityTicker<A>)c : null;
+		return RenderShape.INVISIBLE;
 	}
 
 	@Override protected @NotNull MapCodec<? extends BaseEntityBlock> codec()
 	{
 		return CODEC;
+	}
+
+	protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A>
+			createTickerHelper(BlockEntityType<A> a, BlockEntityType<E> b, BlockEntityTicker<? super E> c)
+	{
+		return a == b ? (BlockEntityTicker<A>)c : null;
 	}
 }
