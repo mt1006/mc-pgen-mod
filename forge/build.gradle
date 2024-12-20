@@ -1,0 +1,20 @@
+plugins
+{
+	id "net.minecraftforge.gradle" version "${forge_gradle_version}"
+}
+
+minecraft
+{
+	mappings channel: "official", version: minecraft_version
+
+	runs
+	{
+		client
+		server
+	}
+}
+
+dependencies
+{
+	minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "pgen:block/particle_generator",
+  "textures":
+  {
+    "all": "pgen:item/particle_generator"
+  }
+}

@@ -1,0 +1,35 @@
+{
+	"schemaVersion": 1,
+	"id": "${mod_id}",
+	"version": "${version}",
+
+	"name": "${mod_name}",
+	"description": "${mod_description}",
+	"authors": ["${mod_author}"],
+	"contact":
+	{
+		"homepage": "${homepage}",
+		"sources": "${source_url}",
+		"issues": "${issue_tracker}"
+	},
+
+	"license": "${license}",
+	"icon": "logo.png",
+
+	"environment": "*",
+	"entrypoints":
+	{
+		"main": ["com.mt1006.pgen.PgenModFabric"],
+		"client": [
+			"com.mt1006.pgen.fabric.ClientInitializer"
+		]
+	},
+
+	"depends":
+	{
+		"minecraft": "${version_range_fabric}",
+		"fabricloader": ">=0.16.0",
+		"fabric-api": "*",
+		"java": ">=${java_version}"
+	}
+}
