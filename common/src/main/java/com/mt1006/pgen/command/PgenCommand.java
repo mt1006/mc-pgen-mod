@@ -67,15 +67,15 @@ public class PgenCommand
 
 		source.sendSuccess(() -> Component.translatable("pgen.help.examples.simple_smoke"), false);
 		source.sendSuccess(() -> Component.literal("    ").append(Component.translatable("pgen.help.examples.using", "/setblock").withStyle((style) ->
-				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_SMOKE_SETBLOCK)))), false);
+				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent.SuggestCommand(COMMAND_SMOKE_SETBLOCK)))), false);
 		source.sendSuccess(() -> Component.literal("    ").append(Component.translatable("pgen.help.examples.using", "/give").withStyle((style) ->
-				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_SMOKE_GIVE)))), false);
+				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent.SuggestCommand(COMMAND_SMOKE_GIVE)))), false);
 
 		source.sendSuccess(() -> Component.translatable("pgen.help.examples.like_campfire"), false);
 		source.sendSuccess(() -> Component.literal("    ").append(Component.translatable("pgen.help.examples.using", "/setblock").withStyle((style) ->
-				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_LIKE_CAMPFIRE_SETBLOCK)))), false);
+				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent.SuggestCommand(COMMAND_LIKE_CAMPFIRE_SETBLOCK)))), false);
 		source.sendSuccess(() -> Component.literal("    ").append(Component.translatable("pgen.help.examples.using", "/give").withStyle((style) ->
-				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, COMMAND_LIKE_CAMPFIRE_GIVE)))), false);
+				style.applyFormat(ChatFormatting.UNDERLINE).withClickEvent(new ClickEvent.SuggestCommand(COMMAND_LIKE_CAMPFIRE_GIVE)))), false);
 		return 1;
 	}
 

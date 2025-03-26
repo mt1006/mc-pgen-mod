@@ -5,7 +5,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -29,16 +28,15 @@ public class ParticleGeneratorBlockEntity extends BlockEntity
 	@Override public void loadAdditional(CompoundTag nbt, HolderLookup.Provider lookup)
 	{
 		super.loadAdditional(nbt, lookup);
-		if (nbt.contains("Particles"))
+
+		ListTag particlesList = nbt.getListOrEmpty("Particles");
+		particles = new ParticleInfo[particlesList.size()];
+		for (int i = 0; i < particlesList.size(); i++)
 		{
-			ListTag particlesList = nbt.getList("Particles", Tag.TAG_COMPOUND);
-			particles = new ParticleInfo[particlesList.size()];
-			for (int i = 0; i < particlesList.size(); i++)
-			{
-				particles[i] = new ParticleInfo(particlesList.getCompound(i));
-			}
+			particles[i] = new ParticleInfo(particlesList.getCompoundOrEmpty(i));
 		}
-		if (nbt.contains("UseAnimateTick")) { useAnimateTick = nbt.getBoolean("UseAnimateTick"); }
+
+		useAnimateTick = nbt.getBooleanOr("UseAnimateTick", false);
 	}
 
 	@Override public void saveAdditional(CompoundTag nbt, HolderLookup.Provider lookup)

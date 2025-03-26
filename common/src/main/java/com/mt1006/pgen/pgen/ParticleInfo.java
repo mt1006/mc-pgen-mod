@@ -1,5 +1,6 @@
 package com.mt1006.pgen.pgen;
 
+import com.mojang.datafixers.util.Pair;
 import com.mt1006.pgen.utils.Utils;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.*;
@@ -14,88 +15,92 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 
 public class ParticleInfo
 {
-	private ParticleOptions particle = null;
-	private Vec3 motion = Vec3.ZERO;
-	private Vec3 motionRand = Vec3.ZERO;
-	private Vec3 posOffset = Vec3.ZERO;
-	private Vec3 posRand = Vec3.ZERO;
-	private int interval = 1;
-	private double probability = 1.0;
-	private int particleCount = 1;
-	private int particleMaxCount = 1;
+	private static final ParticleType<?>[] BLOCK_PARTICLES = {ParticleTypes.BLOCK, ParticleTypes.BLOCK_MARKER, ParticleTypes.FALLING_DUST};
+	private static final ParticleType<?>[] ITEM_PARTICLES = {ParticleTypes.ITEM};
+
+	private final ParticleOptions particle;
+	private final Vec3 motion;
+	private final Vec3 motionRand;
+	private final Vec3 posOffset;
+	private final Vec3 posRand;
+	private final int interval;
+	private final double probability;
+	private final int particleCount;
+	private final int particleMaxCount;
+	private final boolean useRand;
 	private CompoundTag additionalTags = null;
-	private boolean useRand = false;
 	private int intervalCounter = 0;
-	private final ParticleType<?>[] BLOCK_PARTICLES = {ParticleTypes.BLOCK, ParticleTypes.BLOCK_MARKER, ParticleTypes.FALLING_DUST};
-	private final ParticleType<?>[] ITEM_PARTICLES = {ParticleTypes.ITEM};
 
 	public ParticleInfo(CompoundTag nbt)
 	{
-		load(nbt);
+		particle = loadParticleType(nbt);
+		motion = Utils.vector3dFromNBT(nbt, "Motion", Vec3.ZERO);
+		motionRand = Utils.vector3dFromNBT(nbt, "MotionRand", Vec3.ZERO);
+		posOffset = Utils.vector3dFromNBT(nbt, "PositionOffset", Vec3.ZERO);
+		posRand = Utils.vector3dFromNBT(nbt, "PositionRand", Vec3.ZERO);
+		interval = nbt.getIntOr("Interval", 1);
+		probability = nbt.getDoubleOr("Probability", 1.0);
+		particleCount = nbt.getIntOr("ParticleCount", 1);
+		particleMaxCount = nbt.getIntOr("ParticleMaxCount", 1);
+		useRand = (!motionRand.equals(Vec3.ZERO) || !posRand.equals(Vec3.ZERO));
 	}
 
-	public void load(CompoundTag nbt)
+	public @Nullable ParticleOptions loadParticleType(CompoundTag nbt)
 	{
-		if (nbt.contains("id"))
+		String particleId = nbt.getString("id").orElse(null);
+		if (particleId == null) { return null; }
+
+		ResourceLocation resLoc = Utils.resourceLocationFromString(particleId);
+		Holder.Reference<ParticleType<?>> ref = BuiltInRegistries.PARTICLE_TYPE.get(resLoc).orElse(null);
+		ParticleType<?> particleType = ref != null ? ref.value() : null;
+		if (particleType == null) { return null; }
+
+		if (particleType instanceof ParticleOptions)
 		{
-			ResourceLocation resLoc = Utils.resourceLocationFromString(nbt.getString("id"));
-			Holder.Reference<ParticleType<?>> ref = BuiltInRegistries.PARTICLE_TYPE.get(resLoc).orElse(null);
-			ParticleType<?> particleType = ref != null ? ref.value() : null;
-			if (particleType != null)
-			{
-				if (particleType instanceof ParticleOptions) { particle = (ParticleOptions)particleType; }
-				else { particle = loadComplexParticle(particleType, nbt); }
-			}
+			return (ParticleOptions)particleType;
 		}
-		if (nbt.contains("Motion")) { motion = Utils.vector3dFromNBT(nbt, "Motion"); }
-		if (nbt.contains("MotionRand")) { motionRand = Utils.vector3dFromNBT(nbt, "MotionRand"); }
-		if (nbt.contains("PositionOffset")) { posOffset = Utils.vector3dFromNBT(nbt, "PositionOffset"); }
-		if (nbt.contains("PositionRand")) { posRand = Utils.vector3dFromNBT(nbt, "PositionRand"); }
-		if (nbt.contains("Interval")) { interval = nbt.getInt("Interval"); }
-		if (nbt.contains("Probability")) { probability = nbt.getDouble("Probability"); }
-		if (nbt.contains("ParticleCount")) { particleCount = nbt.getInt("ParticleCount"); }
-		if (nbt.contains("ParticleMaxCount")) { particleMaxCount = nbt.getInt("ParticleMaxCount"); }
-		if (!motionRand.equals(Vec3.ZERO) || !posRand.equals(Vec3.ZERO)) { useRand = true; }
+		else
+		{
+			Pair<ParticleOptions, CompoundTag> pair = loadComplexParticle(particleType, nbt);
+			if (pair == null) { return null; }
+			additionalTags = pair.getSecond();
+			return pair.getFirst();
+		}
 	}
 
-	private ParticleOptions loadComplexParticle(ParticleType particleType, CompoundTag nbt)
+	private static @Nullable Pair<ParticleOptions, CompoundTag> loadComplexParticle(ParticleType particleType, CompoundTag nbt)
 	{
-		CompoundTag additionalTags = null;
-
-		if (nbt.contains("AdditionalTags"))
-		{
-			additionalTags = nbt.getCompound("AdditionalTags");
-			this.additionalTags = additionalTags.copy();
-		}
+		CompoundTag additionalTags = nbt.getCompound("AdditionalTags").orElse(null);
+		String additionalId = additionalTags != null ? additionalTags.getString("id").orElse(null) : null;
+		ResourceLocation resLoc = additionalId != null ? Utils.resourceLocationFromString(additionalId) : null;
 
 		if (Arrays.asList(BLOCK_PARTICLES).contains(particleType))
 		{
 			Block block = null;
-			if (additionalTags != null && additionalTags.contains("id"))
+			if (resLoc != null)
 			{
-				ResourceLocation resLoc = Utils.resourceLocationFromString(additionalTags.getString("id"));
 				Holder.Reference<Block> ref = BuiltInRegistries.BLOCK.get(resLoc).orElse(null);
 				block = ref != null ? ref.value() : null;
 			}
 			if (block == null) { block = Blocks.AIR; }
-			return new BlockParticleOption(particleType, block.defaultBlockState());
+			return Pair.of(new BlockParticleOption(particleType, block.defaultBlockState()), additionalTags);
 		}
 		else if (Arrays.asList(ITEM_PARTICLES).contains(particleType))
 		{
 			Item item = null;
-			if (additionalTags != null && additionalTags.contains("id"))
+			if (resLoc != null)
 			{
-				ResourceLocation resLoc = Utils.resourceLocationFromString(additionalTags.getString("id"));
 				Holder.Reference<Item> ref = BuiltInRegistries.ITEM.get(resLoc).orElse(null);
 				item = ref != null ? ref.value() : null;
 			}
 			if (item == null) { item = Items.AIR; }
-			return new ItemParticleOption(particleType, new ItemStack(item));
+			return Pair.of(new ItemParticleOption(particleType, new ItemStack(item)), additionalTags);
 		}
 		return null;
 	}
