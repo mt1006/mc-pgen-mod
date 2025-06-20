@@ -4,20 +4,24 @@ import com.mt1006.pgen.PgenMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ParticleGeneratorBlockEntity extends BlockEntity
 {
-	private ParticleInfo[] particles = null;
+	private List<ParticleInfo> particles = null;
 	public boolean useAnimateTick = false;
 
 	public ParticleGeneratorBlockEntity(BlockPos blockPos, BlockState blockState)
@@ -25,40 +29,34 @@ public class ParticleGeneratorBlockEntity extends BlockEntity
 		super(PgenMod.loaderInterface.getBlockEntity(), blockPos, blockState);
 	}
 
-	@Override public void loadAdditional(CompoundTag nbt, HolderLookup.Provider lookup)
+	@Override public void loadAdditional(ValueInput nbt)
 	{
-		super.loadAdditional(nbt, lookup);
+		super.loadAdditional(nbt);
 
-		ListTag particlesList = nbt.getListOrEmpty("Particles");
-		particles = new ParticleInfo[particlesList.size()];
-		for (int i = 0; i < particlesList.size(); i++)
-		{
-			particles[i] = new ParticleInfo(particlesList.getCompoundOrEmpty(i));
-		}
+		ValueInput.ValueInputList particlesList = nbt.childrenListOrEmpty("Particles");
+		particles = new ArrayList<>();
+		particlesList.forEach((p) -> particles.add(new ParticleInfo(p)));
 
 		useAnimateTick = nbt.getBooleanOr("UseAnimateTick", false);
 	}
 
-	@Override public void saveAdditional(CompoundTag nbt, HolderLookup.Provider lookup)
+	@Override public void saveAdditional(ValueOutput nbt)
 	{
-		super.saveAdditional(nbt, lookup);
+		super.saveAdditional(nbt);
 		if (particles != null)
 		{
-			ListTag particlesList = new ListTag();
+			ValueOutput.ValueOutputList outputList = nbt.childrenList("Particles");
 			for (ParticleInfo particle : particles)
 			{
-				particlesList.add(particle.save(new CompoundTag()));
+				particle.save(outputList.addChild());
 			}
-			nbt.put("Particles", particlesList);
 		}
 		nbt.putBoolean("UseAnimateTick", useAnimateTick);
 	}
 
 	@Override public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider lookup)
 	{
-		CompoundTag nbt = new CompoundTag();
-		saveAdditional(nbt, lookup);
-		return nbt;
+		return saveCustomOnly(lookup);
 	}
 
 	@Override public @Nullable Packet<ClientGamePacketListener> getUpdatePacket()
