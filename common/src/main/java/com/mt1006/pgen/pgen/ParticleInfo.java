@@ -1,7 +1,6 @@
 package com.mt1006.pgen.pgen;
 
 import com.mojang.datafixers.util.Pair;
-import com.mt1006.pgen.utils.Utils;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.*;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -57,8 +56,8 @@ public class ParticleInfo
 		String particleId = nbt.getString("id").orElse(null);
 		if (particleId == null) { return null; }
 
-		ResourceLocation resLoc = Utils.resourceLocationFromString(particleId);
-		Holder.Reference<ParticleType<?>> ref = BuiltInRegistries.PARTICLE_TYPE.get(resLoc).orElse(null);
+		ResourceLocation id = ResourceLocation.tryParse(particleId);
+		Holder.Reference<ParticleType<?>> ref = BuiltInRegistries.PARTICLE_TYPE.get(id).orElse(null);
 		ParticleType<?> particleType = ref != null ? ref.value() : null;
 		if (particleType == null) { return null; }
 
@@ -79,14 +78,14 @@ public class ParticleInfo
 	{
 		ValueInput additionalTags = nbt.child("AdditionalTags").orElse(null);
 		String additionalId = additionalTags != null ? additionalTags.getString("id").orElse(null) : null;
-		ResourceLocation resLoc = additionalId != null ? Utils.resourceLocationFromString(additionalId) : null;
+		ResourceLocation id = additionalId != null ? ResourceLocation.tryParse(additionalId) : null;
 
 		if (Arrays.asList(BLOCK_PARTICLES).contains(particleType))
 		{
 			Block block = null;
-			if (resLoc != null)
+			if (id != null)
 			{
-				Holder.Reference<Block> ref = BuiltInRegistries.BLOCK.get(resLoc).orElse(null);
+				Holder.Reference<Block> ref = BuiltInRegistries.BLOCK.get(id).orElse(null);
 				block = ref != null ? ref.value() : null;
 			}
 			if (block == null) { block = Blocks.AIR; }
@@ -95,9 +94,9 @@ public class ParticleInfo
 		else if (Arrays.asList(ITEM_PARTICLES).contains(particleType))
 		{
 			Item item = null;
-			if (resLoc != null)
+			if (id != null)
 			{
-				Holder.Reference<Item> ref = BuiltInRegistries.ITEM.get(resLoc).orElse(null);
+				Holder.Reference<Item> ref = BuiltInRegistries.ITEM.get(id).orElse(null);
 				item = ref != null ? ref.value() : null;
 			}
 			if (item == null) { item = Items.AIR; }

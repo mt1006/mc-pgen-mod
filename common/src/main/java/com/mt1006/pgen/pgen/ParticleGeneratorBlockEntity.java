@@ -46,10 +46,7 @@ public class ParticleGeneratorBlockEntity extends BlockEntity
 		if (particles != null)
 		{
 			ValueOutput.ValueOutputList outputList = nbt.childrenList("Particles");
-			for (ParticleInfo particle : particles)
-			{
-				particle.save(outputList.addChild());
-			}
+			particles.forEach((p) -> p.save(outputList.addChild()));
 		}
 		nbt.putBoolean("UseAnimateTick", useAnimateTick);
 	}
@@ -72,15 +69,11 @@ public class ParticleGeneratorBlockEntity extends BlockEntity
 
 	public void renderParticles()
 	{
-		if (particles == null) { return; }
+		Level level = getLevel();
+		if (particles == null || level == null) { return; }
 		ParticlesPosition position = getBlockState().getValue(ParticleGeneratorBlock.PARTICLES_POSITION);
 		Vec3 pos = position.getFinalPosition(getBlockPos());
-		Level level = getLevel();
-		if (level == null) { return; }
 
-		for (ParticleInfo particle : particles)
-		{
-			particle.renderParticle(level, level.random, pos.x, pos.y, pos.z);
-		}
+		particles.forEach((p) -> p.renderParticle(level, level.random, pos.x, pos.y, pos.z));
 	}
 }

@@ -57,12 +57,9 @@ public class ParticleGeneratorBlock extends BaseEntityBlock
 	@Override public void animateTick(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos, @NotNull RandomSource random)
 	{
 		BlockEntity blockEntity = level.getBlockEntity(blockPos);
-		if (blockEntity instanceof ParticleGeneratorBlockEntity)
+		if (blockEntity instanceof ParticleGeneratorBlockEntity pgenBlockEntity && pgenBlockEntity.useAnimateTick)
 		{
-			if (((ParticleGeneratorBlockEntity)blockEntity).useAnimateTick)
-			{
-				((ParticleGeneratorBlockEntity)blockEntity).renderParticles();
-			}
+			pgenBlockEntity.renderParticles();
 		}
 	}
 
