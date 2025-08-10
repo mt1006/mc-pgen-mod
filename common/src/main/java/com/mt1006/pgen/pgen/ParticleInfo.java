@@ -8,10 +8,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
@@ -21,7 +19,8 @@ import java.util.Arrays;
 
 public class ParticleInfo
 {
-	private static final ParticleType<?>[] BLOCK_PARTICLES = {ParticleTypes.BLOCK, ParticleTypes.BLOCK_MARKER, ParticleTypes.FALLING_DUST};
+	private static final ParticleType<?>[] BLOCK_PARTICLES = {ParticleTypes.BLOCK, ParticleTypes.BLOCK_MARKER,
+			ParticleTypes.FALLING_DUST, ParticleTypes.DUST_PILLAR, ParticleTypes.BLOCK_CRUMBLE};
 	private static final ParticleType<?>[] ITEM_PARTICLES = {ParticleTypes.ITEM};
 
 	private final @Nullable ParticleOptions particle;
@@ -61,6 +60,8 @@ public class ParticleInfo
 		if (particleId == null) { return null; }
 
 		ResourceLocation id = ResourceLocation.tryParse(particleId);
+		if (id == null) { return null; }
+
 		Holder.Reference<ParticleType<?>> ref = BuiltInRegistries.PARTICLE_TYPE.get(id).orElse(null);
 		ParticleType<?> particleType = ref != null ? ref.value() : null;
 		if (particleType == null) { return null; }
@@ -80,9 +81,11 @@ public class ParticleInfo
 
 	private static @Nullable Pair<ParticleOptions, String> loadComplexParticle(ParticleType particleType, ValueInput nbt)
 	{
+		//TODO: use ParticleType codec instead of AdditionalTags
+
 		ValueInput additionalTags = nbt.child("AdditionalTags").orElse(null);
-		String additionalId = additionalTags != null ? additionalTags.getString("id").orElse(null) : null;
-		ResourceLocation id = additionalId != null ? ResourceLocation.tryParse(additionalId) : null;
+		String idStr = additionalTags != null ? additionalTags.getString("id").orElse(null) : null;
+		ResourceLocation id = idStr != null ? ResourceLocation.tryParse(idStr) : null;
 
 		if (Arrays.asList(BLOCK_PARTICLES).contains(particleType))
 		{
@@ -92,8 +95,7 @@ public class ParticleInfo
 				Holder.Reference<Block> ref = BuiltInRegistries.BLOCK.get(id).orElse(null);
 				block = ref != null ? ref.value() : null;
 			}
-			if (block == null) { block = Blocks.AIR; }
-			return Pair.of(new BlockParticleOption(particleType, block.defaultBlockState()), additionalId);
+			return block != null ? Pair.of(new BlockParticleOption(particleType, block.defaultBlockState()), idStr) : null;
 		}
 		else if (Arrays.asList(ITEM_PARTICLES).contains(particleType))
 		{
@@ -103,8 +105,7 @@ public class ParticleInfo
 				Holder.Reference<Item> ref = BuiltInRegistries.ITEM.get(id).orElse(null);
 				item = ref != null ? ref.value() : null;
 			}
-			if (item == null) { item = Items.AIR; }
-			return Pair.of(new ItemParticleOption(particleType, new ItemStack(item)), additionalId);
+			return item != null ? Pair.of(new ItemParticleOption(particleType, new ItemStack(item)), idStr) : null;
 		}
 		return null;
 	}
