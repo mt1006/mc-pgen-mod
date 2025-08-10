@@ -23,6 +23,7 @@ public class ParticleGeneratorBlockEntity extends BlockEntity
 {
 	private List<ParticleInfo> particles = null;
 	public boolean useAnimateTick = false;
+	private int signal = 0;
 
 	public ParticleGeneratorBlockEntity(BlockPos blockPos, BlockState blockState)
 	{
@@ -38,6 +39,7 @@ public class ParticleGeneratorBlockEntity extends BlockEntity
 		particlesList.forEach((p) -> particles.add(new ParticleInfo(p)));
 
 		useAnimateTick = nbt.getBooleanOr("UseAnimateTick", false);
+		signal = nbt.getIntOr("signal", 0);
 	}
 
 	@Override public void saveAdditional(ValueOutput nbt)
@@ -49,11 +51,7 @@ public class ParticleGeneratorBlockEntity extends BlockEntity
 			particles.forEach((p) -> p.save(outputList.addChild()));
 		}
 		nbt.putBoolean("UseAnimateTick", useAnimateTick);
-	}
-
-	@Override public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider lookup)
-	{
-		return saveCustomOnly(lookup);
+		if (signal != 0) { nbt.putInt("signal", signal); }
 	}
 
 	@Override public @Nullable Packet<ClientGamePacketListener> getUpdatePacket()
@@ -61,10 +59,23 @@ public class ParticleGeneratorBlockEntity extends BlockEntity
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
-	public static void tick(Level level, BlockPos blockPos, BlockState blockState, ParticleGeneratorBlockEntity blockEntity)
+	@Override public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider lookup)
 	{
-		if (blockEntity.useAnimateTick) { return; }
-		blockEntity.renderParticles();
+		return saveCustomOnly(lookup);
+	}
+
+	public void setSignal(Level level, BlockPos blockPos, BlockState blockState, int signal)
+	{
+		if (this.signal != signal)
+		{
+			this.signal = signal;
+			level.sendBlockUpdated(blockPos, blockState, blockState, 0);
+		}
+	}
+
+	public static void tickClient(Level level, BlockPos blockPos, BlockState blockState, ParticleGeneratorBlockEntity blockEntity)
+	{
+		if (!blockEntity.useAnimateTick) { blockEntity.renderParticles(); }
 	}
 
 	public void renderParticles()
@@ -74,6 +85,6 @@ public class ParticleGeneratorBlockEntity extends BlockEntity
 		ParticlesPosition position = getBlockState().getValue(ParticleGeneratorBlock.PARTICLES_POSITION);
 		Vec3 pos = position.getFinalPosition(getBlockPos());
 
-		particles.forEach((p) -> p.renderParticle(level, level.random, pos.x, pos.y, pos.z));
+		particles.forEach((p) -> p.renderParticle(level, level.random, pos.x, pos.y, pos.z, signal));
 	}
 }

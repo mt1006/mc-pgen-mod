@@ -24,7 +24,7 @@ public class ParticleInfo
 	private static final ParticleType<?>[] BLOCK_PARTICLES = {ParticleTypes.BLOCK, ParticleTypes.BLOCK_MARKER, ParticleTypes.FALLING_DUST};
 	private static final ParticleType<?>[] ITEM_PARTICLES = {ParticleTypes.ITEM};
 
-	private final ParticleOptions particle;
+	private final @Nullable ParticleOptions particle;
 	private final Vec3 motion;
 	private final Vec3 motionRand;
 	private final Vec3 posOffset;
@@ -34,6 +34,8 @@ public class ParticleInfo
 	private final int particleCount;
 	private final int particleMaxCount;
 	private final boolean useRand;
+	private final int signalMin;
+	private final int signalMax;
 	private @Nullable String additionalId = null;
 	private int intervalCounter = 0;
 
@@ -48,6 +50,8 @@ public class ParticleInfo
 		probability = nbt.getDoubleOr("Probability", 1.0);
 		particleCount = nbt.getIntOr("ParticleCount", 1);
 		particleMaxCount = nbt.getIntOr("ParticleMaxCount", 1);
+		signalMin = nbt.getIntOr("SignalMin", Integer.MIN_VALUE);
+		signalMax = nbt.getIntOr("SignalMax", Integer.MAX_VALUE);
 		useRand = (!motionRand.equals(Vec3.ZERO) || !posRand.equals(Vec3.ZERO));
 	}
 
@@ -109,8 +113,8 @@ public class ParticleInfo
 	{
 		if (particle != null)
 		{
-			ResourceLocation resourceLocation = BuiltInRegistries.PARTICLE_TYPE.getKey(particle.getType());
-			if (resourceLocation != null) { nbt.putString("id", resourceLocation.toString()); }
+			ResourceLocation particleId = BuiltInRegistries.PARTICLE_TYPE.getKey(particle.getType());
+			if (particleId != null) { nbt.putString("id", particleId.toString()); }
 		}
 		nbt.store("Motion", Vec3.CODEC, motion);
 		nbt.store("MotionRand", Vec3.CODEC, motionRand);
@@ -120,20 +124,29 @@ public class ParticleInfo
 		nbt.putDouble("Probability", probability);
 		nbt.putInt("ParticleCount", particleCount);
 		nbt.putInt("ParticleMaxCount", particleMaxCount);
+		nbt.putInt("SignalMin", signalMin);
+		nbt.putInt("SignalMax", signalMax);
 		if (additionalId != null) { nbt.child("AdditionalTags").putString("id", additionalId); }
 		return nbt;
 	}
 
-	public void renderParticle(Level level, RandomSource random, double x, double y, double z)
+	public void renderParticle(Level level, RandomSource random, double x, double y, double z, int redstoneSignal)
 	{
 		if (particle == null) { return; }
+		if (redstoneSignal < signalMin || redstoneSignal > signalMax)
+		{
+			intervalCounter = 0;
+			return;
+		}
+
 		if (intervalCounter == interval)
 		{
 			if (random.nextDouble() <= probability)
 			{
-				int multiplier;
-				if (particleCount >= particleMaxCount) { multiplier = particleCount; }
-				else { multiplier = particleCount + random.nextInt(particleMaxCount - particleCount + 1); }
+				int multiplier = (particleCount >= particleMaxCount)
+						? particleCount
+						: particleCount + random.nextInt(particleMaxCount - particleCount + 1);
+
 				for (int i = 0; i < multiplier; i++)
 				{
 					if (useRand)

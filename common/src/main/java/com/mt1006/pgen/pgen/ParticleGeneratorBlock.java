@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -56,10 +57,18 @@ public class ParticleGeneratorBlock extends BaseEntityBlock
 
 	@Override public void animateTick(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos, @NotNull RandomSource random)
 	{
-		BlockEntity blockEntity = level.getBlockEntity(blockPos);
-		if (blockEntity instanceof ParticleGeneratorBlockEntity pgenBlockEntity && pgenBlockEntity.useAnimateTick)
+		if (level.getBlockEntity(blockPos) instanceof ParticleGeneratorBlockEntity pgenBlockEntity && pgenBlockEntity.useAnimateTick)
 		{
 			pgenBlockEntity.renderParticles();
+		}
+	}
+
+	@Override protected void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block neighborBlock,
+											 @Nullable Orientation orientation, boolean movedByPiston)
+	{
+		if (!level.isClientSide && level.getBlockEntity(blockPos) instanceof ParticleGeneratorBlockEntity pgenBlockEntity)
+		{
+			pgenBlockEntity.setSignal(level, blockPos, blockState, level.getBestNeighborSignal(blockPos));
 		}
 	}
 
@@ -67,7 +76,7 @@ public class ParticleGeneratorBlock extends BaseEntityBlock
 			Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType)
 	{
 		return level.isClientSide
-				? createTickerHelper(blockEntityType, PgenMod.loaderInterface.getBlockEntity(), ParticleGeneratorBlockEntity::tick)
+				? createTickerHelper(blockEntityType, PgenMod.loaderInterface.getBlockEntity(), ParticleGeneratorBlockEntity::tickClient)
 				: null;
 	}
 
