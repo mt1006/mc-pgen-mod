@@ -34,6 +34,8 @@ Particles:[{...}] - list of compounds:
   Probability:double - probability of particle spawning
   ParticleCount:int - number of particles when spawned
   ParticleMaxCount:int - maximum number of particles
+  SignalMin:int - minimal redstone signal to activate particle
+  SignalMax:int - maximal redstone signal to activate particle
   AdditionalTags:{} - additional tags (like block id)
 UseAnimateTick:bool - spawn particles on animateTick
 ```
@@ -56,6 +58,12 @@ BlockEntityTag:{...} - specifies block NBT tags
 block_state:{...} - specifies block states
 block_entity_data:{id:"pgen:particle_generator",...} - specifies block NBT tags
 ```
+
+### Tips
+
+You can find list of particles with its IDs on https://minecraft.wiki/w/Particles_(Java_Edition)
+
+If you want to copy Particle Generator block (with NBT data) hold control key when pressing MMB.
 
 
 # Examples
