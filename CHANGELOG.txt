@@ -1,3 +1,7 @@
+===Version 1.2===
+-Added ability to control Particle Generator with redstone using "SignalMin" and "SignalMax" NBT tags (thanks to Drakonas_Last_Dovahkiin for suggestion).
+-Fixed issues with "dust_pillar" and "block_crumble" particles.
+
 ===Version 1.1===
 -Particle Generators now have outline after using "/pgen show".
 -Removed locate particle and "/pgen locate" command.
