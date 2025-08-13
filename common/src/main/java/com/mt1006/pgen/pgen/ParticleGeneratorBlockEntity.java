@@ -15,10 +15,14 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ParticleGeneratorBlockEntity extends BlockEntity
 {
-	private ParticleInfo[] particles = null;
+	private List<ParticleInfo> particles = null;
 	public boolean useAnimateTick = false;
+	private int signal = 0;
 
 	public ParticleGeneratorBlockEntity(BlockPos blockPos, BlockState blockState)
 	{
@@ -30,13 +34,11 @@ public class ParticleGeneratorBlockEntity extends BlockEntity
 		super.loadAdditional(nbt, lookup);
 
 		ListTag particlesList = nbt.getListOrEmpty("Particles");
-		particles = new ParticleInfo[particlesList.size()];
-		for (int i = 0; i < particlesList.size(); i++)
-		{
-			particles[i] = new ParticleInfo(particlesList.getCompoundOrEmpty(i));
-		}
+		particles = new ArrayList<>();
+		particlesList.forEach((p) -> particles.add(new ParticleInfo(p.asCompound().orElse(new CompoundTag()))));
 
 		useAnimateTick = nbt.getBooleanOr("UseAnimateTick", false);
+		signal = nbt.getIntOr("signal", 0);
 	}
 
 	@Override public void saveAdditional(CompoundTag nbt, HolderLookup.Provider lookup)
@@ -45,20 +47,11 @@ public class ParticleGeneratorBlockEntity extends BlockEntity
 		if (particles != null)
 		{
 			ListTag particlesList = new ListTag();
-			for (ParticleInfo particle : particles)
-			{
-				particlesList.add(particle.save(new CompoundTag()));
-			}
+			particles.forEach((p) -> particlesList.add(p.save(new CompoundTag())));
 			nbt.put("Particles", particlesList);
 		}
 		nbt.putBoolean("UseAnimateTick", useAnimateTick);
-	}
-
-	@Override public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider lookup)
-	{
-		CompoundTag nbt = new CompoundTag();
-		saveAdditional(nbt, lookup);
-		return nbt;
+		if (signal != 0) { nbt.putInt("signal", signal); }
 	}
 
 	@Override public @Nullable Packet<ClientGamePacketListener> getUpdatePacket()
@@ -66,23 +59,32 @@ public class ParticleGeneratorBlockEntity extends BlockEntity
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
-	public static void tick(Level level, BlockPos blockPos, BlockState blockState, ParticleGeneratorBlockEntity blockEntity)
+	@Override public @NotNull CompoundTag getUpdateTag(HolderLookup.Provider lookup)
 	{
-		if (blockEntity.useAnimateTick) { return; }
-		blockEntity.renderParticles();
+		return saveCustomOnly(lookup);
+	}
+
+	public void setSignal(Level level, BlockPos blockPos, BlockState blockState, int signal)
+	{
+		if (this.signal != signal)
+		{
+			this.signal = signal;
+			level.sendBlockUpdated(blockPos, blockState, blockState, 0);
+		}
+	}
+
+	public static void tickClient(Level level, BlockPos blockPos, BlockState blockState, ParticleGeneratorBlockEntity blockEntity)
+	{
+		if (!blockEntity.useAnimateTick) { blockEntity.renderParticles(); }
 	}
 
 	public void renderParticles()
 	{
-		if (particles == null) { return; }
+		Level level = getLevel();
+		if (particles == null || level == null) { return; }
 		ParticlesPosition position = getBlockState().getValue(ParticleGeneratorBlock.PARTICLES_POSITION);
 		Vec3 pos = position.getFinalPosition(getBlockPos());
-		Level level = getLevel();
-		if (level == null) { return; }
 
-		for (ParticleInfo particle : particles)
-		{
-			particle.renderParticle(level, level.random, pos.x, pos.y, pos.z);
-		}
+		particles.forEach((p) -> p.renderParticle(level, level.random, pos.x, pos.y, pos.z, signal));
 	}
 }
