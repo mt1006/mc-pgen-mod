@@ -8,6 +8,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -55,32 +56,42 @@ public class ParticleGeneratorBlock extends BaseEntityBlock
 
 	@Override public void animateTick(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos, @NotNull RandomSource random)
 	{
-		BlockEntity blockEntity = level.getBlockEntity(blockPos);
-		if (blockEntity instanceof ParticleGeneratorBlockEntity)
+		if (level.getBlockEntity(blockPos) instanceof ParticleGeneratorBlockEntity pgenBlockEntity && pgenBlockEntity.useAnimateTick)
 		{
-			if(((ParticleGeneratorBlockEntity)blockEntity).useAnimateTick)
-			{
-				((ParticleGeneratorBlockEntity)blockEntity).renderParticles();
-			}
+			pgenBlockEntity.renderParticles();
 		}
 	}
 
-	@Override @Nullable public <T extends BlockEntity> BlockEntityTicker<T>
-			getTicker(Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType)
+	@Override protected void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block neighborBlock,
+											 BlockPos neighborBlockPos, boolean movedByPiston)
+	{
+		if (!level.isClientSide && level.getBlockEntity(blockPos) instanceof ParticleGeneratorBlockEntity pgenBlockEntity)
+		{
+			pgenBlockEntity.setSignal(level, blockPos, blockState, level.getBestNeighborSignal(blockPos));
+		}
+	}
+
+	@Override @Nullable public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
+			Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType)
 	{
 		return level.isClientSide
-				? createTickerHelper(blockEntityType, PgenMod.loaderInterface.getBlockEntity(), ParticleGeneratorBlockEntity::tick)
+				? createTickerHelper(blockEntityType, PgenMod.loaderInterface.getBlockEntity(), ParticleGeneratorBlockEntity::tickClient)
 				: null;
+	}
+
+	@Override protected @NotNull RenderShape getRenderShape(BlockState state)
+	{
+		return RenderShape.INVISIBLE;
+	}
+
+	@Override protected @NotNull MapCodec<? extends BaseEntityBlock> codec()
+	{
+		return CODEC;
 	}
 
 	protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A>
 			createTickerHelper(BlockEntityType<A> a, BlockEntityType<E> b, BlockEntityTicker<? super E> c)
 	{
 		return a == b ? (BlockEntityTicker<A>)c : null;
-	}
-
-	@Override protected @NotNull MapCodec<? extends BaseEntityBlock> codec()
-	{
-		return CODEC;
 	}
 }
