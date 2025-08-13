@@ -11,7 +11,6 @@ import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
 
 public class PgenCommand
 {
@@ -38,10 +37,9 @@ public class PgenCommand
 
 	private static int show(CommandContext<CommandSourceStack> ctx)
 	{
-		Entity entity = ctx.getSource().getEntity();
-		if (entity instanceof ServerPlayer)
+		if (ctx.getSource().getEntity() instanceof ServerPlayer player)
 		{
-			PgenPacketS2C.send((ServerPlayer)entity, PgenPacketS2C.OP_SHOW);
+			PgenPacketS2C.send(player, PgenPacketS2C.OP_SHOW);
 			return 1;
 		}
 		return 0;
@@ -49,10 +47,9 @@ public class PgenCommand
 
 	private static int hide(CommandContext<CommandSourceStack> ctx)
 	{
-		Entity entity = ctx.getSource().getEntity();
-		if (entity instanceof ServerPlayer)
+		if (ctx.getSource().getEntity() instanceof ServerPlayer player)
 		{
-			PgenPacketS2C.send((ServerPlayer)entity, PgenPacketS2C.OP_HIDE);
+			PgenPacketS2C.send(player, PgenPacketS2C.OP_HIDE);
 			return 1;
 		}
 		return 0;
