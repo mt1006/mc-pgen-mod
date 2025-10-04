@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 @Mod(PgenMod.MOD_ID)
 public class PgenModNeoForge implements PgenModLoaderInterface
 {
-	public static final boolean isDedicatedServer = FMLEnvironment.dist.isDedicatedServer();
+	public static final boolean isDedicatedServer = FMLEnvironment.getDist().isDedicatedServer();
 	private final @Nullable ModContainer modContainer;
 
 	public PgenModNeoForge(IEventBus eventBus)

@@ -22,7 +22,7 @@ public class RegistryHandler
 
 	public static final Supplier<ParticleGeneratorBlock> BLOCK_PG = BLOCKS.registerBlock("particle_generator",
 			ParticleGeneratorBlock::new, BlockBehaviour.Properties.of().strength(-1.0f, 3600000.8f)
-					.noLootTable().noOcclusion().noCollission().pushReaction(PushReaction.BLOCK));
+					.noLootTable().noOcclusion().noCollision().pushReaction(PushReaction.BLOCK));
 
 	public static final Supplier<BlockItem> ITEM_PG = ITEMS.registerItem("particle_generator",
 			(props) -> new BlockItem(BLOCK_PG.get(), props.rarity(Rarity.EPIC).useBlockDescriptionPrefix()));

@@ -66,7 +66,7 @@ public class ParticleGeneratorBlock extends BaseEntityBlock
 	@Override protected void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block neighborBlock,
 											 @Nullable Orientation orientation, boolean movedByPiston)
 	{
-		if (!level.isClientSide && level.getBlockEntity(blockPos) instanceof ParticleGeneratorBlockEntity pgenBlockEntity)
+		if (!level.isClientSide() && level.getBlockEntity(blockPos) instanceof ParticleGeneratorBlockEntity pgenBlockEntity)
 		{
 			pgenBlockEntity.setSignal(level, blockPos, blockState, level.getBestNeighborSignal(blockPos));
 		}
@@ -75,7 +75,7 @@ public class ParticleGeneratorBlock extends BaseEntityBlock
 	@Override @Nullable public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
 			Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType)
 	{
-		return level.isClientSide
+		return level.isClientSide()
 				? createTickerHelper(blockEntityType, PgenMod.loaderInterface.getBlockEntity(), ParticleGeneratorBlockEntity::tickClient)
 				: null;
 	}

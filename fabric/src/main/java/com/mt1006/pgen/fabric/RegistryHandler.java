@@ -23,7 +23,7 @@ public class RegistryHandler
 
 	public static final Block BLOCK_PG =
 			new ParticleGeneratorBlock(BlockBehaviour.Properties.of().strength(-1.0f, 3600000.8f).noLootTable().noOcclusion()
-					.noCollission().pushReaction(PushReaction.BLOCK).setId(ResourceKey.create(Registries.BLOCK, PG_ID)));
+					.noCollision().pushReaction(PushReaction.BLOCK).setId(ResourceKey.create(Registries.BLOCK, PG_ID)));
 
 	public static final Item ITEM_PG =
 			new BlockItem(BLOCK_PG, new Item.Properties().rarity(Rarity.EPIC)
