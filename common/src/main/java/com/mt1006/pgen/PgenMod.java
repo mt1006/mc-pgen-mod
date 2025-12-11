@@ -3,7 +3,7 @@ package com.mt1006.pgen;
 public class PgenMod
 {
 	public static final String MOD_ID = "pgen";
-	public static final String FOR_VERSION = "1.21.9";
+	public static final String FOR_VERSION = "1.21.11";
 	public static boolean isDedicatedServer = false;
 	public static PgenModLoaderInterface loaderInterface = null;
 

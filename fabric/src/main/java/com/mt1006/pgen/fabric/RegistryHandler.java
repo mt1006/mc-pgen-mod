@@ -7,8 +7,8 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -19,7 +19,7 @@ import net.minecraft.world.level.material.PushReaction;
 
 public class RegistryHandler
 {
-	private static final ResourceLocation PG_ID = ResourceLocation.fromNamespaceAndPath(PgenMod.MOD_ID, "particle_generator");
+	private static final Identifier PG_ID = Identifier.fromNamespaceAndPath(PgenMod.MOD_ID, "particle_generator");
 
 	public static final Block BLOCK_PG =
 			new ParticleGeneratorBlock(BlockBehaviour.Properties.of().strength(-1.0f, 3600000.8f).noLootTable().noOcclusion()

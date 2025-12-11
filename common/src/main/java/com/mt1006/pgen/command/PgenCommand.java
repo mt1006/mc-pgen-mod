@@ -26,12 +26,12 @@ public class PgenCommand
 	public static void register(CommandDispatcher<CommandSourceStack> dispatcher)
 	{
 		LiteralCommandNode<CommandSourceStack> literalCommandNode = dispatcher.
-				register(Commands.literal("particlegenerator").requires((source) -> source.hasPermission(2)).
+				register(Commands.literal("particlegenerator").requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS)).
 				then(Commands.literal("show").executes(PgenCommand::show)).
 				then(Commands.literal("hide").executes(PgenCommand::hide)).
 				then(Commands.literal("help").executes(PgenCommand::help)).
 				then(Commands.literal("info").executes(PgenCommand::info)));
-		dispatcher.register(Commands.literal("pgen").requires((source) -> source.hasPermission(2)).
+		dispatcher.register(Commands.literal("pgen").requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS)).
 				redirect(literalCommandNode));
 	}
 

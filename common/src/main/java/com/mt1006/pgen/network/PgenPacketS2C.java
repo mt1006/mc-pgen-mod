@@ -5,14 +5,14 @@ import com.mt1006.pgen.pgen.ParticleGeneratorBlock;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
 
 public class PgenPacketS2C implements CustomPacketPayload
 {
 	private static final String TYPE_ID = PgenMod.loaderInterface.getLoaderName().toLowerCase() + "_s2c";
-	public static final Type<PgenPacketS2C> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(PgenMod.MOD_ID, TYPE_ID));
+	public static final Type<PgenPacketS2C> TYPE = new Type<>(Identifier.fromNamespaceAndPath(PgenMod.MOD_ID, TYPE_ID));
 	public static final StreamCodec<FriendlyByteBuf, PgenPacketS2C> CODEC = StreamCodec.of((b, p) -> p.encode(b), PgenPacketS2C::new);
 
 	public static final int OP_SHOW = 1;

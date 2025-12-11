@@ -13,6 +13,6 @@ public class ClientInitializer implements ClientModInitializer
 		BlockEntityRenderers.register(RegistryHandler.BLOCK_ENTITY_PG, ParticleGeneratorBlockEntityRenderer::new);
 
 		PacketHandler.register();
-		BlockRenderLayerMap.putBlock(RegistryHandler.BLOCK_PG, ChunkSectionLayer.CUTOUT_MIPPED);
+		BlockRenderLayerMap.putBlock(RegistryHandler.BLOCK_PG, ChunkSectionLayer.CUTOUT);
 	}
 }

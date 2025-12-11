@@ -4,7 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.*;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -59,7 +59,7 @@ public class ParticleInfo
 		String particleId = nbt.getString("id").orElse(null);
 		if (particleId == null) { return null; }
 
-		ResourceLocation id = ResourceLocation.tryParse(particleId);
+		Identifier id = Identifier.tryParse(particleId);
 		if (id == null) { return null; }
 
 		Holder.Reference<ParticleType<?>> ref = BuiltInRegistries.PARTICLE_TYPE.get(id).orElse(null);
@@ -85,7 +85,7 @@ public class ParticleInfo
 
 		ValueInput additionalTags = nbt.child("AdditionalTags").orElse(null);
 		String idStr = additionalTags != null ? additionalTags.getString("id").orElse(null) : null;
-		ResourceLocation id = idStr != null ? ResourceLocation.tryParse(idStr) : null;
+		Identifier id = idStr != null ? Identifier.tryParse(idStr) : null;
 
 		if (Arrays.asList(BLOCK_PARTICLES).contains(particleType))
 		{
@@ -110,11 +110,11 @@ public class ParticleInfo
 		return null;
 	}
 
-	public ValueOutput save(ValueOutput nbt)
+	public void save(ValueOutput nbt)
 	{
 		if (particle != null)
 		{
-			ResourceLocation particleId = BuiltInRegistries.PARTICLE_TYPE.getKey(particle.getType());
+			Identifier particleId = BuiltInRegistries.PARTICLE_TYPE.getKey(particle.getType());
 			if (particleId != null) { nbt.putString("id", particleId.toString()); }
 		}
 		nbt.store("Motion", Vec3.CODEC, motion);
@@ -128,7 +128,6 @@ public class ParticleInfo
 		nbt.putInt("SignalMin", signalMin);
 		nbt.putInt("SignalMax", signalMax);
 		if (additionalId != null) { nbt.child("AdditionalTags").putString("id", additionalId); }
-		return nbt;
 	}
 
 	public void renderParticle(Level level, RandomSource random, double x, double y, double z, int redstoneSignal)
