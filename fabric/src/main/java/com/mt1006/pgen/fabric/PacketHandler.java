@@ -9,7 +9,7 @@ public class PacketHandler
 {
 	public static void register()
 	{
-		PayloadTypeRegistry.playS2C().register(PgenPacketS2C.TYPE, PgenPacketS2C.CODEC);
+		PayloadTypeRegistry.clientboundPlay().register(PgenPacketS2C.TYPE, PgenPacketS2C.CODEC);
 		if (!PgenMod.isDedicatedServer)
 		{
 			ClientPlayNetworking.registerGlobalReceiver(PgenPacketS2C.TYPE, PacketHandler::clientReceiver);

@@ -85,6 +85,6 @@ public class ParticleGeneratorBlockEntity extends BlockEntity
 		ParticlesPosition position = getBlockState().getValue(ParticleGeneratorBlock.PARTICLES_POSITION);
 		Vec3 pos = position.getFinalPosition(getBlockPos());
 
-		particles.forEach((p) -> p.renderParticle(level, level.random, pos.x, pos.y, pos.z, signal));
+		particles.forEach((p) -> p.renderParticle(level, level.getRandom(), pos.x, pos.y, pos.z, signal));
 	}
 }

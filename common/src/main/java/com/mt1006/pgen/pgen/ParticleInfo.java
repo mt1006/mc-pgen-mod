@@ -7,7 +7,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.ValueInput;
@@ -105,7 +105,7 @@ public class ParticleInfo
 				Holder.Reference<Item> ref = BuiltInRegistries.ITEM.get(id).orElse(null);
 				item = ref != null ? ref.value() : null;
 			}
-			return item != null ? Pair.of(new ItemParticleOption(particleType, new ItemStack(item)), idStr) : null;
+			return item != null ? Pair.of(new ItemParticleOption(particleType, new ItemStackTemplate(item)), idStr) : null;
 		}
 		return null;
 	}
