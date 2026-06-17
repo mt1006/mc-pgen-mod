@@ -21,7 +21,7 @@ public class RegistryHandler
 	private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, PgenMod.MOD_ID);
 
 	public static final Supplier<ParticleGeneratorBlock> BLOCK_PG = BLOCKS.registerBlock("particle_generator",
-			ParticleGeneratorBlock::new, BlockBehaviour.Properties.of().strength(-1.0f, 3600000.8f)
+			ParticleGeneratorBlock::new, () -> BlockBehaviour.Properties.of().strength(-1.0f, 3600000.8f)
 					.noLootTable().noOcclusion().noCollision().pushReaction(PushReaction.BLOCK));
 
 	public static final Supplier<BlockItem> ITEM_PG = ITEMS.registerItem("particle_generator",
