@@ -1,3 +1,11 @@
+## THIS REPOSITORY HAS BEEN MOVED TO CODEBERG
+
+### New repository: https://codeberg.org/mt1006/mc-pgen-mod
+
+### Issue tracker: https://codeberg.org/mt1006/mc-pgen-mod/issues
+
+
+
 # About
 **ParticleGenerator** is a Minecraft mod created mainly for builders and mapmakers. It adds Particle Generator block into the game.
 
